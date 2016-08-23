@@ -2,7 +2,7 @@
 
 class Http {
 
-  var $method, $req, $res, $url;
+  public $method, $req, $res, $url;
 
   function __construct() {
     header('Content-Type: application/json');
