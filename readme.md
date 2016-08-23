@@ -4,13 +4,13 @@ The goal is to write a helpful set of classes that make writing RESTful JSON API
 
 ##Setup
 
-- In your project, `require_once` the path to the `TemplateRendering_Autoloader.php`.
+- In your project, `require_once` the path to the `Http_Autoloader.php`.
 
 ##Classes
 
 ```php
 <?php
 
-require_once 'path/to/TemplateRendering_Autoloader.php';
+require_once 'path/to/Http_Autoloader.php';
 
 ```
