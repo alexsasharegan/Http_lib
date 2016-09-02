@@ -1,21 +1,20 @@
 <?php
 
+require_once __DIR__."/child_classes/Request.class.php";
+require_once __DIR__."/child_classes/Response.class.php";
+
 class Http {
 
-  public $method, $req, $res, $url;
+  public $request, $response;
 
-  function __construct() {
-    header('Content-Type: application/json');
-    date_default_timezone_set("America/Phoenix");
-    $this->method = $_SERVER['REQUEST_METHOD'];
-    $this->req = json_decode(file_get_contents('php://input'),TRUE);
-    $this->url = $_SERVER['REQUEST_URI'];
+  function __construct( $deserialize = 'application/json' ) {
+    $this->request = new Http\Request($deserialize);
+    $this->response = new Http\Response();
   }
 
-  public function sendJSON($statusCode = 200) {
+  public function send($statusCode = 200) {
     http_response_code($statusCode);
-    $json = json_encode($this->$res);
-    echo $data;
+    echo $this->response->serialize();
     exit;
   }
 
