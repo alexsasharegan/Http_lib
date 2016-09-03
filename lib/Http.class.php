@@ -59,6 +59,10 @@ class Http {
     exit;
   }
 
+  public function handleError($e) {
+    $this->send( 500, 'application/json', json_encode( [ 'error' => $e ] ) );
+  }
+
   public function __toString() {
     return json_encode($this);
   }

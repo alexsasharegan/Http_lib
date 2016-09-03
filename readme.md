@@ -131,6 +131,8 @@ The last line in your callback will be a call to `Http::send`. This exits execut
       }
     ```
 
+If you use a `try {} catch(e) {}` block in your error handling, you can call `Http::handleError( Exception $e )` in your catch block, and it will automatically reply with a `500` code and a json payload containing the error.
+
 Once you have defined all your necessary HTTP method callbacks, you can let your instance of `Http` run the appropriate callback by simply calling:
 
 ```php
