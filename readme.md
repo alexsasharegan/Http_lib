@@ -124,6 +124,12 @@ The last line in your callback will be a call to `Http::send`. This exits execut
     * **statusCode:** a valid HTTP status code to return
     * **contentType:** a valid MIME Type to set the response header
     * **content:** if you set Content-Type to something other than json, you can send your custom data with this parameter. No serialization will be performed on this content.
+    * **_Note:_** any undefined routes will return a status code `405` with a json formatted error message
+    ```json
+      {
+        "error": "No route has been defined for this request method."
+      }
+    ```
 
 Once you have defined all your necessary HTTP method callbacks, you can let your instance of `Http` run the appropriate callback by simply calling:
 
