@@ -3,6 +3,7 @@
 namespace Http;
 
 class Request {
+  
   public $body, $method, $requestURI, $query, $file;
 
   function __construct() {

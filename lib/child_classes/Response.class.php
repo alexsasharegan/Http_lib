@@ -6,11 +6,8 @@ class Response {
 
   private $data = [];
 
-  function __construct($contentType) {
-
-    header("Content-Type: $contentType;charset=UTF-8");
-    date_default_timezone_set("America/Phoenix");
-
+  function __construct() {
+    # code ...
   } # end constructor
 
   public function get($prop) {

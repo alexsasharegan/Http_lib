@@ -20,16 +20,10 @@ require_once 'project_root/dist/api/vendor/Http_lib/Http_Autoloader.php';
 
 ## Instantiation
 
-You can create an instance of `Http` with no arguments for a json response. Pass in a valid MIME Type to automatically set the outgoing "Content-Type" header.
-
 ```php
 <?php
 
 $http = new Http;
-# new instance defaults to 'application/json'
-
-$http = new Http('text/html');
-# new instance sets the Content-Type header to "text/html;charset=UTF-8"
 ```
 
 ## Properties
@@ -122,12 +116,13 @@ When writing your callbacks, you can build up your response with two methods:
     ##### Parameters
     * **array:** an associative array of values to set on the response
 
-The last line in your callback will be a call to `Http::send`. This exits execution after sending the response.
+The last line in your callback will be a call to `Http::send`. This exits execution completely after sending the response.
 
-  - `Http::send( int $statusCode = 200 [, string $content = '' ] )`
+  - `Http::send( [ int $statusCode = 200, string $contentType = "application/json", string $content = '' ] )`
 
     ##### Parameters
-    * **statusCode:** a valid HTTP status code to return _(defaults to 200)_
+    * **statusCode:** a valid HTTP status code to return
+    * **contentType:** a valid MIME Type to set the response header
     * **content:** if you set Content-Type to something other than json, you can send your custom data with this parameter. No serialization will be performed on this content.
 
 Once you have defined all your necessary HTTP method callbacks, you can let your instance of `Http` run the appropriate callback by simply calling:
