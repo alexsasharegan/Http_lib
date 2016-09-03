@@ -81,7 +81,7 @@ Properties for `Http\Reponse` are private. This allows the response object to ma
 
 The `Http` class has a method available for each major HTTP verb _(GET, POST, PUT, PATCH, DELETE)_. These allow you to attach your callbacks to be run on each appropriate request method. You can pass in the string name of your callback, or write your function inline as a closure. The callback will be called with the instance of `Http`.
 
-##### Callback Reference
+#### Callback Reference
 
 ```php
 <?php  
@@ -95,7 +95,7 @@ $http->POST('myPostCallback');
 
 ```
 
-##### Inline Closure
+#### Inline Closure
 
 ```php
 <?php  
@@ -111,15 +111,15 @@ $http->POST(
 
 When writing your callbacks, you can build up your response with two methods:
 
-  - `Http\Response::set( string $key, mixed $value)`
+  - `Http\Response::set( string $key, mixed $value )`
 
-    ###### Parameters
+    ##### Parameters
     * **key:** the name for the value you wish to set
     * **value:** the value you wish to set
 
   - `Http\Response::set_array( array $array )`
 
-    ###### Parameters
+    ##### Parameters
     * **array:** an associative array of values to set on the response
 
 The last line in your callback will be a call to `Http::send`. This exits execution after sending the response.
@@ -129,7 +129,7 @@ The last line in your callback will be a call to `Http::send`. This exits execut
   ###### Parameters
   * **statusCode:** a valid HTTP status code to return _(defaults to 200)_
   * **content:** if you set Content-Type to something other than json, you can send your custom data with this parameter. No serialization will be performed on this content.
-  
+
 Once you have defined all your necessary HTTP method callbacks, you can let your instance of `Http` run the appropriate callback by simply calling:
 
 ```php
