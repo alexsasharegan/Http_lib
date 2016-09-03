@@ -3,15 +3,29 @@
 namespace Http;
 
 class Request {
-  public $body, $method, $url, $query;
+  public $body, $method, $requestURI, $query, $file;
 
-  function __construct($mimeType) {
+  function __construct() {
 
-    $this->query = $_GET;
+    $this->contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
+    $this->cookies = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : '';;
+
+    // PHP throws a scrict-mode warning if we don't use an interim variable
+    // "Strict Standards: Only variables should be passed by reference"
+    $scriptNameArray = explode('/', $_SERVER['SCRIPT_NAME']);
+    $this->file = end($scriptNameArray);
+
+    $this->host = $_SERVER['HTTP_HOST'];
     $this->method = $_SERVER['REQUEST_METHOD'];
-    $this->url = $_SERVER['REQUEST_URI'];
+    $this->query = $_GET;
+    $this->port = $_SERVER['SERVER_PORT'];
+    $this->pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+    $this->requestURI = $_SERVER['REQUEST_URI'];
+    $this->scriptName = $_SERVER['SCRIPT_NAME'];
+    $this->URIComponents = parse_url($_SERVER['REQUEST_URI']);
+    $this->userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-    switch ($mimeType) {
+    switch ($this->contentType) {
       case 'application/json':
         $this->body = json_decode(file_get_contents('php://input'), true);
         break;
@@ -32,4 +46,8 @@ class Request {
     return $this->$prop;
   }
 
-}
+  public function __toString() {
+    return json_encode($this);
+  }
+
+} # end class

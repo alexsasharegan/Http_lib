@@ -7,15 +7,47 @@ class Http {
 
   public $request, $response;
 
-  function __construct( $deserialize = 'application/json' ) {
-    $this->request = new Http\Request($deserialize);
-    $this->response = new Http\Response();
+  function __construct( $contentType = 'application/json' ) {
+    $this->request = new Http\Request();
+    $this->response = new Http\Response($contentType);
   }
 
-  public function send($statusCode = 200) {
+  public function GET($cb) {
+    $this->GET = $cb;
+  }
+
+  public function POST($cb) {
+    $this->POST = $cb;
+  }
+
+  public function PUT($cb) {
+    $this->PUT = $cb;
+  }
+
+  public function PATCH($cb) {
+    $this->PATCH = $cb;
+  }
+
+  public function DELETE($cb) {
+    $this->DELETE = $cb;
+  }
+
+  public function exec() {
+    call_user_func($this->{$this->request->method}, $this);
+  }
+
+  public function send($statusCode = 200, $content = '') {
     http_response_code($statusCode);
-    echo $this->response->serialize();
+    if (!empty($content)) {
+      echo $content;
+    } else {
+      echo $this->response;
+    }
     exit;
+  }
+
+  public function __toString() {
+    return json_encode($this);
   }
 
 }
