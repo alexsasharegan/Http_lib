@@ -124,11 +124,11 @@ When writing your callbacks, you can build up your response with two methods:
 
 The last line in your callback will be a call to `Http::send`. This exits execution after sending the response.
 
-- `Http::send( int $statusCode = 200 [, string $content = '' ] )`
+  - `Http::send( int $statusCode = 200 [, string $content = '' ] )`
 
-  ##### Parameters
-  * **statusCode:** a valid HTTP status code to return _(defaults to 200)_
-  * **content:** if you set Content-Type to something other than json, you can send your custom data with this parameter. No serialization will be performed on this content.
+    ##### Parameters
+    * **statusCode:** a valid HTTP status code to return _(defaults to 200)_
+    * **content:** if you set Content-Type to something other than json, you can send your custom data with this parameter. No serialization will be performed on this content.
 
 Once you have defined all your necessary HTTP method callbacks, you can let your instance of `Http` run the appropriate callback by simply calling:
 
