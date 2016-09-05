@@ -85,7 +85,7 @@ function myPostCallback($http) {
 }
 
 $http = new Http;
-$http->POST('myPostCallback');
+$http->post('myPostCallback');
 ```
 
 #### Inline Closure
@@ -94,11 +94,27 @@ $http->POST('myPostCallback');
 <?php  
 
 $http = new Http;
-$http->POST(
+$http->post(
   function ($http) {
     # code ...
   }
 );
+
+# also possible
+$myGlobalVar = [1,2,3];
+(new Http)
+  ->get(
+    function ($http) {
+      # code ...
+    }
+  )
+  ->post(
+    function ($http, $myGlobalVar) {
+      # code ...
+    }
+    , $myGlobalVar
+  )
+  ->exec();
 ```
 
 To get values off the parsed request body, call `Http\Request::get( string $key )`.
