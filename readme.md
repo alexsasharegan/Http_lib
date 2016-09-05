@@ -34,11 +34,11 @@ Properties for class `Http` represented in json:
 {
   "request": "type: class Http\Request",
   "response": "type: class Http\Response",
-  "GET": "type: callable (callback handle)",
-  "POST": "type: callable (callback handle)",
-  "PUT": "type: callable (callback handle)",
-  "PATCH": "type: callable (callback handle)",
-  "DELETE": "type: callable (callback handle)"
+  "get": "type: callable (callback handle)",
+  "post": "type: callable (callback handle)",
+  "put": "type: callable (callback handle)",
+  "patch": "type: callable (callback handle)",
+  "delete": "type: callable (callback handle)"
 }
 ```
 
@@ -73,7 +73,7 @@ Properties for `Http\Reponse` are private. This allows the response object to ma
 
 ## Methods
 
-The `Http` class has a method available for each major HTTP verb _(GET, POST, PUT, PATCH, DELETE)_. These allow you to attach your callbacks to be run on each appropriate request method. You can pass in the string name of your callback, or write your function inline as a closure. The callback will be called with the instance of `Http`.
+The `Http` class has a method available for each major HTTP verb _(get, post, put, patch, delete)_. These allow you to attach your callbacks to be run on each appropriate request method. You can pass in the string name of your callback, or write your function inline as a closure. The callback will be called with the instance of `Http`.
 
 #### Callback Reference
 
@@ -86,7 +86,6 @@ function myPostCallback($http) {
 
 $http = new Http;
 $http->POST('myPostCallback');
-
 ```
 
 #### Inline Closure
@@ -100,8 +99,9 @@ $http->POST(
     # code ...
   }
 );
-
 ```
+
+To get values off the parsed request body, call `Http\Request::get( string $key )`.
 
 When writing your callbacks, you can build up your response with two methods:
 
@@ -131,7 +131,7 @@ The last line in your callback will be a call to `Http::send`. This exits execut
       }
     ```
 
-If you use a `try {} catch(e) {}` block in your error handling, you can call `Http::handleError( Exception $e )` in your catch block, and it will automatically reply with a `500` code and a json payload containing the error.
+If you use a `try {} catch(Exception $e) {}` block in your error handling, you can call `Http::handleError( Exception $e )` in your catch block, and it will automatically reply with a `500` code and a json payload containing the error.
 
 Once you have defined all your necessary HTTP method callbacks, you can let your instance of `Http` run the appropriate callback by simply calling:
 

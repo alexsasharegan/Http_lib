@@ -3,13 +3,18 @@
 require_once __DIR__."/child_classes/Request.class.php";
 require_once __DIR__."/child_classes/Response.class.php";
 
+use Http\Request;
+use Http\Response;
+
 class Http {
 
   public $request, $response, $contentType;
 
   function __construct() {
-    $this->request = new Http\Request();
-    $this->response = new Http\Response();
+    date_default_timezone_set("America/Phoenix");
+
+    $this->request = new Request;
+    $this->response = new Response;
   }
 
   private function handleDefault() {
@@ -19,29 +24,46 @@ class Http {
     $this->send(405);
   }
 
-  public function GET($cb) {
+  public function get( $cb ) {
+    $args = array_slice( func_get_args(), 1 );
+    $this->GETParams = $args;
     $this->GET = $cb;
+    return $this;
   }
 
-  public function POST($cb) {
+  public function post( $cb ) {
+    $args = array_slice( func_get_args(), 1 );
+    $this->POSTParams = $args;
     $this->POST = $cb;
+    return $this;
   }
 
-  public function PUT($cb) {
+  public function put( $cb ) {
+    $args = array_slice( func_get_args(), 1 );
+    $this->PUTParams = $args;
     $this->PUT = $cb;
+    return $this;
   }
 
-  public function PATCH($cb) {
+  public function patch( $cb ) {
+    $args = array_slice( func_get_args(), 1 );
+    $this->PATCHParams = $args;
     $this->PATCH = $cb;
+    return $this;
   }
 
-  public function DELETE($cb) {
+  public function delete( $cb ) {
+    $args = array_slice( func_get_args(), 1 );
+    $this->DELETEParams = $args;
     $this->DELETE = $cb;
+    return $this;
   }
 
   public function exec() {
-    if (is_callable($this->{$this->request->method})) {
-      call_user_func($this->{$this->request->method}, $this);
+    $method = $this->request->method;
+    if ( is_callable( $this->$method ) ) {
+      $params = array_merge( [ $this ], $this->{$method . 'Params'} );
+      call_user_func_array( $this->$method, $params );
     } else {
       $this->handleDefault();
     }
@@ -49,22 +71,30 @@ class Http {
 
   public function send( $statusCode = 200, $contentType = 'application/json', $content = '' ) {
     header("Content-Type: $contentType;charset=UTF-8");
-    date_default_timezone_set("America/Phoenix");
-    http_response_code($statusCode);
-    if (!empty($content)) {
+
+    if ( isset( Response::$statusTexts[$statusCode] ) ) {
+      http_response_code( $statusCode );
+    }
+
+    if ( !empty( $content ) ) {
       echo $content;
     } else {
       echo $this->response;
     }
+
     exit;
   }
 
-  public function handleError($e) {
+  public function handleError( $e ) {
     $this->send( 500, 'application/json', json_encode( [ 'error' => $e ] ) );
   }
 
+  public function abort( $statusCode = 404, $message = 'Sorry, something went wrong.' ) {
+    $this->send( $statusCode, 'application/json', json_encode( [ 'message' => $message ] ) );
+  }
+
   public function __toString() {
-    return json_encode($this);
+    return json_encode( $this );
   }
 
 }
