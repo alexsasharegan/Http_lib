@@ -4,11 +4,8 @@ namespace Http;
 
 class Request {
 
-  public  $body,
-          $method,
-          $requestURI,
-          $query,
-          $file;
+  private $body,
+          $_query;
 
   function __construct() {
 
@@ -22,7 +19,7 @@ class Request {
 
     $this->host = $_SERVER['HTTP_HOST'];
     $this->method = $_SERVER['REQUEST_METHOD'];
-    $this->query = $_GET;
+    $this->_query = $_GET;
     $this->port = $_SERVER['SERVER_PORT'];
     $this->pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
     $this->requestURI = $_SERVER['REQUEST_URI'];
@@ -47,8 +44,12 @@ class Request {
 
   } # end constructor
 
-  public function get( $prop ) {
-    return isset( $this->body->$prop ) ? $this->body->$prop : null;
+  public function get( $key ) {
+    return isset( $this->body[$key] ) ? $this->body[$key] : null;
+  }
+
+  public function query( $key ) {
+    return isset( $this->_query[$key] ) ? $this->_query[$key] : null;
   }
 
   public function __toString() {
