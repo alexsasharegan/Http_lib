@@ -2,7 +2,7 @@
 
 namespace Http;
 
-class Response {
+class Response implements \JsonSerializable {
 
   private $data = [];
 
@@ -27,6 +27,10 @@ class Response {
 
   public function __toString() {
     return json_encode( $this->data );
+  }
+
+  public function jsonSerialize() {
+    return $this->data;
   }
 
   const HTTP_CONTINUE = 100;

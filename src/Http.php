@@ -1,10 +1,6 @@
 <?php
 
-require_once __DIR__."/child_classes/Request.class.php";
-require_once __DIR__."/child_classes/Response.class.php";
-
-use Http\Request;
-use Http\Response;
+namespace Http;
 
 class Http {
 
