@@ -156,3 +156,73 @@ Once you have defined all your necessary HTTP method callbacks, you can let your
 
 $http->exec();
 ```
+
+## Examples
+
+```php
+<?php
+# this example uses the Database and Html library as well
+require_once 'path/to/vendor/autoload.php';
+
+# alias our classes for cleanliness
+use Database\MySQL;
+use Http\Http;
+use Html\Html;
+
+# the callbacks for each http method
+# get called with the instance of Http\Http
+function get($http) {
+  # instantiate our MySQL object with a connection config
+  $db = new MySQL([
+    'hostName'     => '1.1.1.1',
+    'databaseName' => 'myDatabase',
+    'dbUserName'   => 'admin',
+    'dbPassword'   => 'adminPass',
+  ]);
+
+  # make a select query and pull $id from the request query string
+  $db->query(
+    "SELECT * FROM `sellers` WHERE `id` = {$http->request->query('id')}"
+  )
+  # this func gets called once for each row
+  # 'use' pulls in $http from the closure's parent scope
+  # sometimes we need to pass by reference like this: use( &$var )
+  ->iterateResult(
+    function ( $row ) use ( $http ){
+      $http->response->set_array($row);
+    }
+  );
+  # nesting operations to dumb the column names into response['sellers']
+  $http->response->set( 'sellersColumns', $db->getColumns('sellers') );
+  # test setting different types
+  $http->response->set( 'test', [
+    'one' => 1,
+    'two' => 'two',
+    'three' => true,
+    'four' => [1,2,3],
+  ]);
+  # send what's in our response object
+  $http->send();
+}
+
+# make our instance of Http\Http
+$http = new Http;
+# chain our calls together
+$http
+  ->get( 'get' )
+  ->post(
+    function ( $http ) {
+      # code ...
+    }
+  )
+  # there is a default exception handler,
+  # but you can set a custom exception handler
+  # like this:
+  ->error(
+    function ( Exception $e ) use ( $http ) {
+      $http->send(500, 'text/html', new Html('code', $e));
+    }
+  )
+  # execute the route
+  ->exec();
+```
