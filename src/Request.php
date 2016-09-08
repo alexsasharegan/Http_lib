@@ -28,13 +28,13 @@ class Request {
     $this->userAgent = $_SERVER['HTTP_USER_AGENT'];
 
     switch ( $this->contentType ) {
-      case 'application/json':
+      case stristr($this->contentType, 'application/json'):
         $this->body = json_decode( file_get_contents('php://input'), true );
         break;
-      case 'application/x-www-form-urlencoded':
+      case stristr($this->contentType, 'application/x-www-form-urlencoded'):
         $this->body = $_POST;
         break;
-      case 'text/plain':
+      case stristr($this->contentType, 'text/plain'):
         $this->body = file_get_contents( 'php://input' );
         break;
       default:
