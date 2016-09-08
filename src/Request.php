@@ -44,8 +44,8 @@ class Request {
 
   } # end constructor
 
-  public function get( $key ) {
-    if ( !is_array( $this->body ) ) {
+  public function get( $key = '' ) {
+    if ( !is_array( $this->body ) || empty( $key ) ) {
       return isset( $this->body ) ? $this->body : null;
     }
     return isset( $this->body[$key] ) ? $this->body[$key] : null;
