@@ -1,10 +1,30 @@
 <?php
 
 namespace Http;
+use Http\Exceptions\InvalidStatusCode;
 
 class Http {
 
-  public $request, $response, $contentType;
+  public static function redirect( $url = '/' ) {
+    header("Location: $url");
+    exit;
+  }
+
+  public static function status( $statusCode ) {
+    if ( !empty( $statusCode ) ):
+
+      if ( isset( Response::$statusTexts[$statusCode] ) ):
+        return http_response_code( $statusCode );
+      else:
+        throw new InvalidStatusCode( $statusCode, 1 );
+      endif;
+
+    else:
+
+      return http_response_code();
+
+    endif;
+  }
 
   function __construct() {
     date_default_timezone_set("America/Phoenix");
@@ -13,10 +33,10 @@ class Http {
       function ( $errno, $errstr, $errfile = '', $errline = '' ) {
         $this->response->set_array([
           'error' => [
-            'level' => $errno,
+            'level'   => $errno,
             'message' => $errstr,
-            'file' => $errfile,
-            'line' => $errline,
+            'file'    => $errfile,
+            'line'    => $errline,
           ],
         ]);
       }
@@ -32,7 +52,7 @@ class Http {
         'message' => "No route has been defined for this request method.",
       ],
     ]);
-    $this->send(405);
+    $this->send( Response::HTTP_METHOD_NOT_ALLOWED );
   }
 
   public function get( callable $cb ) {
@@ -77,26 +97,29 @@ class Http {
 
   public function exec() {
     $method = $this->request->method;
-    if ( is_callable( $this->$method ) ) {
+
+    if ( is_callable( $this->$method ) ):
       $params = array_merge( [ $this ], $this->{$method . 'Params'} );
       call_user_func_array( $this->$method, $params );
-    } else {
+    else:
       $this->handleDefault();
-    }
+    endif;
   }
 
   public function send( $statusCode = 200, $contentType = 'application/json', $content = '' ) {
-    header("Content-Type: $contentType;charset=UTF-8");
+    header("Content-Type: $contentType; charset=UTF-8");
 
-    if ( isset( Response::$statusTexts[$statusCode] ) ) {
+    if ( isset( Response::$statusTexts[$statusCode] ) ):
       http_response_code( $statusCode );
-    }
+    else:
+      throw new InvalidStatusCode( $statusCode, 1 );
+    endif;
 
-    if ( !empty( $content ) ) {
+    if ( !empty( $content ) ):
       echo $content;
-    } else {
+    else:
       echo $this->response;
-    }
+    endif;
 
     exit;
   }

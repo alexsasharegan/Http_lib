@@ -8,7 +8,7 @@ class Response implements \JsonSerializable {
 
   function __construct() {
     # code ...
-  } # end constructor
+  }
 
   public function get( $prop ) {
     return $this->data[$prop];
@@ -96,7 +96,7 @@ class Response implements \JsonSerializable {
   const HTTP_NOT_EXTENDED = 510;                                                // RFC2774
   const HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
 
-  public static $statusTexts = array(
+  public static $statusTexts = [
     100 => 'Continue',
     101 => 'Switching Protocols',
     102 => 'Processing',            // RFC2518
@@ -158,6 +158,6 @@ class Response implements \JsonSerializable {
     508 => 'Loop Detected',                                               // RFC5842
     510 => 'Not Extended',                                                // RFC2774
     511 => 'Network Authentication Required',                             // RFC6585
-  );
+  ];
 
 } # end class
