@@ -27,7 +27,7 @@ class Request {
     $this->URIComponents = parse_url($_SERVER['REQUEST_URI']);
     $this->userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-    switch ( $this->contentType ) {
+    switch ( strtolower( $this->contentType ) ) {
       case stristr($this->contentType, 'application/json'):
         $this->body = json_decode( file_get_contents('php://input'), true );
         break;
