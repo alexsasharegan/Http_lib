@@ -21,7 +21,7 @@ class Response implements \JsonSerializable {
 	 * @return mixed
 	 */
 	public function get( $prop ) {
-		return $this->_data[$prop];
+		return $this->_data[ $prop ];
 	}
 	
 	/**
@@ -30,8 +30,9 @@ class Response implements \JsonSerializable {
 	 * @return mixed
 	 */
 	public function set( $key, $val ) {
-		$this->_data[$key] = $val;
-		return $this->_data[$key];
+		$this->_data[ $key ] = $val;
+		
+		return $this->_data[ $key ];
 	}
 	
 	/**
@@ -39,7 +40,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function set_array( array $assoc_array ) {
 		foreach ( $assoc_array as $key => $val ) {
-			$this->_data[$key] = $val;
+			$this->_data[ $key ] = $val;
 		}
 	}
 	
@@ -49,6 +50,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function push( $data ) {
 		array_push( $this->_data, $data );
+		
 		return $this;
 	}
 	
@@ -58,6 +60,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function unshift( $data ) {
 		array_unshift( $this->_data, $data );
+		
 		return $this;
 	}
 	

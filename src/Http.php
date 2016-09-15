@@ -22,7 +22,7 @@ class Http {
 	public static function status( $statusCode ) {
 		if ( !empty($statusCode) ):
 			
-			if ( isset(Response::$statusTexts[$statusCode]) ):
+			if ( isset(Response::$statusTexts[ $statusCode ]) ):
 				return http_response_code( $statusCode );
 			else:
 				throw new InvalidStatusCode( $statusCode, 1 );
@@ -45,10 +45,10 @@ class Http {
 			function ( $errno, $errstr, $errfile = '', $errline = '' ) {
 				$this->response->set_array( [
 					'error' => [
-						'level' => $errno,
+						'level'   => $errno,
 						'message' => $errstr,
-						'file' => $errfile,
-						'line' => $errline,
+						'file'    => $errfile,
+						'line'    => $errline,
 					],
 				] );
 			}
@@ -78,6 +78,7 @@ class Http {
 		$args            = array_slice( func_get_args(), 1 );
 		$this->GETParams = $args;
 		$this->GET       = $cb;
+		
 		return $this;
 	}
 	
@@ -89,6 +90,7 @@ class Http {
 		$args             = array_slice( func_get_args(), 1 );
 		$this->POSTParams = $args;
 		$this->POST       = $cb;
+		
 		return $this;
 	}
 	
@@ -100,6 +102,7 @@ class Http {
 		$args            = array_slice( func_get_args(), 1 );
 		$this->PUTParams = $args;
 		$this->PUT       = $cb;
+		
 		return $this;
 	}
 	
@@ -111,6 +114,7 @@ class Http {
 		$args              = array_slice( func_get_args(), 1 );
 		$this->PATCHParams = $args;
 		$this->PATCH       = $cb;
+		
 		return $this;
 	}
 	
@@ -122,6 +126,7 @@ class Http {
 		$args               = array_slice( func_get_args(), 1 );
 		$this->DELETEParams = $args;
 		$this->DELETE       = $cb;
+		
 		return $this;
 	}
 	
@@ -131,6 +136,7 @@ class Http {
 	 */
 	public function error( callable $cb ) {
 		set_exception_handler( $cb );
+		
 		return $this;
 	}
 	
@@ -157,7 +163,7 @@ class Http {
 	public function send( $statusCode = 200, $contentType = 'application/json', $content = '' ) {
 		header( "Content-Type: $contentType; charset=UTF-8" );
 		
-		if ( isset(Response::$statusTexts[$statusCode]) ):
+		if ( isset(Response::$statusTexts[ $statusCode ]) ):
 			http_response_code( $statusCode );
 		else:
 			throw new InvalidStatusCode( $statusCode, 1 );
