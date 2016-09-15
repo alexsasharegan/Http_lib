@@ -4,6 +4,9 @@ namespace Http;
 
 class Response implements \JsonSerializable {
 	
+	/**
+	 * @var array
+	 */
 	private $_data = [];
 	
 	/**
@@ -56,6 +59,10 @@ class Response implements \JsonSerializable {
 	public function unshift( $data ) {
 		array_unshift( $this->_data, $data );
 		return $this;
+	}
+	
+	public function header( $headerName, $value, $replace = true ) {
+		header("$headerName: $value", $replace);
 	}
 	
 	/**
@@ -135,6 +142,9 @@ class Response implements \JsonSerializable {
 	const HTTP_NOT_EXTENDED = 510;                                                // RFC2774
 	const HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
 	
+	/**
+	 * @var array
+	 */
 	public static $statusTexts = [
 		100 => 'Continue',
 		101 => 'Switching Protocols',

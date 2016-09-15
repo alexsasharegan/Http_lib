@@ -4,8 +4,14 @@ namespace Http;
 
 class Request {
 	
-	private $_body,
-		$_query;
+	/**
+	 * @var string
+	 */
+	private $_query;
+	/**
+	 * @var string
+	 */
+	private $_body;
 	
 	/**
 	 * Request constructor.
@@ -55,7 +61,8 @@ class Request {
 		if ( !is_array( $this->_body ) || empty($key) ) {
 			return isset($this->_body) ? $this->_body : null;
 		}
-		return isset($this->_body[$key]) ? $this->_body[$key] : null;
+		
+		return isset($this->_body[ $key ]) ? $this->_body[ $key ] : null;
 	}
 	
 	/**
@@ -63,7 +70,7 @@ class Request {
 	 * @return null
 	 */
 	public function query( $key ) {
-		return isset($this->_query[$key]) ? $this->_query[$key] : null;
+		return isset($this->_query[ $key ]) ? $this->_query[ $key ] : null;
 	}
 	
 	/**
