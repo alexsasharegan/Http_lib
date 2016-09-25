@@ -1,6 +1,10 @@
 # Http
+[![Latest Stable Version](https://poser.pugx.org/alexsasharegan/http/v/stable)](https://packagist.org/packages/alexsasharegan/http)
+[![Total Downloads](https://poser.pugx.org/alexsasharegan/http/downloads)](https://packagist.org/packages/alexsasharegan/http)
+[![Latest Unstable Version](https://poser.pugx.org/alexsasharegan/http/v/unstable)](https://packagist.org/packages/alexsasharegan/http)
+[![License](https://poser.pugx.org/alexsasharegan/http/license)](https://packagist.org/packages/alexsasharegan/http)
 
-The goal is to write a helpful set of classes that make writing RESTful JSON API's easier in PHP.
+A lightweight, dependency free library that makes writing file-based RESTful JSON API endpoints easier in PHP.
 
 ## Setup
 
