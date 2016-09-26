@@ -16,7 +16,8 @@ class Request {
 	/**
 	 * Request constructor.
 	 */
-	function __construct() {
+	function __construct()
+	{
 		
 		$this->contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
 		$this->cookies     = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : '';;
@@ -36,9 +37,10 @@ class Request {
 		$this->URIComponents = parse_url( $_SERVER['REQUEST_URI'] );
 		$this->userAgent     = $_SERVER['HTTP_USER_AGENT'];
 		
-		switch ( strtolower( $this->contentType ) ) {
+		switch ( strtolower( $this->contentType ) )
+		{
 			case strtolower( stristr( $this->contentType, 'application/json' ) ):
-				$this->_body = json_decode( file_get_contents( 'php://input' ), true );
+				$this->_body = json_decode( file_get_contents( 'php://input' ), TRUE );
 				break;
 			case strtolower( stristr( $this->contentType, 'application/x-www-form-urlencoded' ) ):
 				$this->_body = $_POST;
@@ -55,28 +57,34 @@ class Request {
 	
 	/**
 	 * @param string $key
+	 *
 	 * @return array|mixed|null|string
 	 */
-	public function get( $key = '' ) {
-		if ( !is_array( $this->_body ) || empty($key) ) {
-			return isset($this->_body) ? $this->_body : null;
+	public function get( $key = '' )
+	{
+		if ( ! is_array( $this->_body ) || empty($key) )
+		{
+			return isset($this->_body) ? $this->_body : NULL;
 		}
 		
-		return isset($this->_body[ $key ]) ? $this->_body[ $key ] : null;
+		return isset($this->_body[ $key ]) ? $this->_body[ $key ] : NULL;
 	}
 	
 	/**
 	 * @param $key
+	 *
 	 * @return null
 	 */
-	public function query( $key ) {
-		return isset($this->_query[ $key ]) ? $this->_query[ $key ] : null;
+	public function query( $key )
+	{
+		return isset($this->_query[ $key ]) ? $this->_query[ $key ] : NULL;
 	}
 	
 	/**
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		return json_encode( $this );
 	}
 	

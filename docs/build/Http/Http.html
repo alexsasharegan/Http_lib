@@ -98,8 +98,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_redirect">redirect</a>(string $url = &#039;/&#039;)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Redirect to a given URL.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -107,10 +106,20 @@
                     static&nbsp;int
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_status">status</a>(int $statusCode)
+                    <a href="#method_status">status</a>(int $statusCode = NULL)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>If given a valid status code,
+sets the status and return the previous status code.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    void
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_header">header</a>($headerName, $value, bool $replacePrevious = TRUE)
+        
+                                            <p>Sets the header response header.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -130,8 +139,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_get">get</a>(callable $cb)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Defines a GET callback</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -141,8 +149,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_post">post</a>(callable $cb)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Defines a POST callback</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -152,8 +159,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_put">put</a>(callable $cb)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Defines a PUT callback</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -163,8 +169,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_patch">patch</a>(callable $cb)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Defines a PATCH callback</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -174,8 +179,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_delete">delete</a>(callable $cb)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Defines a DELETE callback</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -185,52 +189,49 @@
                 <div class="col-md-8 type">
                     <a href="#method_error">error</a>(callable $cb)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Defines the global exception handler</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_exec">exec</a>()
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Runs the route</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_send">send</a>(int $statusCode = 200, string $contentType = &#039;application/json&#039;, string $content = &#039;&#039;)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Sends a response and exits script execution.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_handleError">handleError</a>(<a target="_blank" href="http://php.net/Exception">Exception</a> $e)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>This is really an exception handler
+"error" is just syntactical sugar</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    void
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_abort">abort</a>(int $statusCode = 404, string $message = &#039;Sorry, something went wrong.&#039;)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>A convenience method to abort the route
+and send a response with the given status &amp; message</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -252,7 +253,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">at line         line 12</div>
+        <div class="location">at line         line 15</div>
         <code>        static            
     <strong>redirect</strong>(string $url = &#039;/&#039;)
         </code>
@@ -261,6 +262,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Redirect to a given URL.</p>                    <p>Exits execution.</p>            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -281,15 +284,18 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_status">
-        <div class="location">at line         line 22</div>
+        <div class="location">at line         line 32</div>
         <code>        static            int
-    <strong>status</strong>(int $statusCode)
+    <strong>status</strong>(int $statusCode = NULL)
         </code>
     </h3>
     <div class="details">
             
     
 
+                    <div class="method-description">
+                                    <p>If given a valid status code,
+sets the status and return the previous status code.</p>                    <p>If not, returns the current status code.</p>            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -327,8 +333,61 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_header">
+        <div class="location">at line         line 59</div>
+        <code>                    void
+    <strong>header</strong>($headerName, $value, bool $replacePrevious = TRUE)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Sets the header response header.</p>                    <p><ul>
+<li>Convenience method proxy for the Response class</li>
+</ul>
+</p>            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$headerName</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$value</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$replacePrevious</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at line         line 41</div>
+        <div class="location">at line         line 67</div>
         <code>                    
     <strong>__construct</strong>()
         </code>
@@ -349,7 +408,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at line         line 77</div>
+        <div class="location">at line         line 109</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>get</strong>(callable $cb)
         </code>
@@ -358,6 +417,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Defines a GET callback</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -387,7 +448,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_post">
-        <div class="location">at line         line 89</div>
+        <div class="location">at line         line 125</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>post</strong>(callable $cb)
         </code>
@@ -396,6 +457,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Defines a POST callback</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -425,7 +488,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_put">
-        <div class="location">at line         line 101</div>
+        <div class="location">at line         line 141</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>put</strong>(callable $cb)
         </code>
@@ -434,6 +497,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Defines a PUT callback</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -463,7 +528,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_patch">
-        <div class="location">at line         line 113</div>
+        <div class="location">at line         line 157</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>patch</strong>(callable $cb)
         </code>
@@ -472,6 +537,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Defines a PATCH callback</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -501,7 +568,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_delete">
-        <div class="location">at line         line 125</div>
+        <div class="location">at line         line 173</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>delete</strong>(callable $cb)
         </code>
@@ -510,6 +577,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Defines a DELETE callback</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -539,7 +608,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_error">
-        <div class="location">at line         line 137</div>
+        <div class="location">at line         line 189</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>error</strong>(callable $cb)
         </code>
@@ -548,6 +617,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Defines the global exception handler</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -577,8 +648,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_exec">
-        <div class="location">at line         line 146</div>
-        <code>                    
+        <div class="location">at line         line 201</div>
+        <code>                    void
     <strong>exec</strong>()
         </code>
     </h3>
@@ -586,8 +657,19 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Runs the route</p>                                </div>
                 <div class="tags">
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -596,8 +678,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_send">
-        <div class="location">at line         line 163</div>
-        <code>                    
+        <div class="location">at line         line 224</div>
+        <code>                    void
     <strong>send</strong>(int $statusCode = 200, string $contentType = &#039;application/json&#039;, string $content = &#039;&#039;)
         </code>
     </h3>
@@ -605,6 +687,8 @@
             
     
 
+                    <div class="method-description">
+                                    <p>Sends a response and exits script execution.</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -627,6 +711,15 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
                             <h4>Exceptions</h4>
 
@@ -644,8 +737,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_handleError">
-        <div class="location">at line         line 186</div>
-        <code>                    
+        <div class="location">at line         line 250</div>
+        <code>                    void
     <strong>handleError</strong>(<a target="_blank" href="http://php.net/Exception">Exception</a> $e)
         </code>
     </h3>
@@ -653,6 +746,9 @@
             
     
 
+                    <div class="method-description">
+                                    <p>This is really an exception handler
+"error" is just syntactical sugar</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -665,6 +761,15 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -673,8 +778,8 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_abort">
-        <div class="location">at line         line 194</div>
-        <code>                    
+        <div class="location">at line         line 264</div>
+        <code>                    void
     <strong>abort</strong>(int $statusCode = 404, string $message = &#039;Sorry, something went wrong.&#039;)
         </code>
     </h3>
@@ -682,6 +787,9 @@
             
     
 
+                    <div class="method-description">
+                                    <p>A convenience method to abort the route
+and send a response with the given status &amp; message</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -699,6 +807,15 @@
             </table>
 
             
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>void</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
                     </div>
@@ -707,7 +824,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method___toString">
-        <div class="location">at line         line 201</div>
+        <div class="location">at line         line 272</div>
         <code>                    string
     <strong>__toString</strong>()
         </code>

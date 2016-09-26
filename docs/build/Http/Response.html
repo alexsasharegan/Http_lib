@@ -614,10 +614,9 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_header">header</a>($headerName, $value, $replace = true)
+                    <a href="#method_header">header</a>($headerName, $value, bool $replacePrevious = TRUE)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p>Sets the header response header.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -671,7 +670,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at line         line 23</div>
+        <div class="location">at line         line 25</div>
         <code>                    mixed
     <strong>get</strong>($prop)
         </code>
@@ -709,7 +708,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_set">
-        <div class="location">at line         line 32</div>
+        <div class="location">at line         line 36</div>
         <code>                    mixed
     <strong>set</strong>($key, $val)
         </code>
@@ -752,7 +751,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_set_array">
-        <div class="location">at line         line 41</div>
+        <div class="location">at line         line 46</div>
         <code>                    
     <strong>set_array</strong>(array $assoc_array)
         </code>
@@ -781,7 +780,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_push">
-        <div class="location">at line         line 51</div>
+        <div class="location">at line         line 59</div>
         <code>                    <abbr title="Http\$this">$this</abbr>
     <strong>push</strong>($data)
         </code>
@@ -819,7 +818,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_unshift">
-        <div class="location">at line         line 61</div>
+        <div class="location">at line         line 71</div>
         <code>                    <abbr title="Http\$this">$this</abbr>
     <strong>unshift</strong>($data)
         </code>
@@ -857,15 +856,17 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_header">
-        <div class="location">at line         line 67</div>
+        <div class="location">at line         line 85</div>
         <code>                    
-    <strong>header</strong>($headerName, $value, $replace = true)
+    <strong>header</strong>($headerName, $value, bool $replacePrevious = TRUE)
         </code>
     </h3>
     <div class="details">
             
     
 
+                    <div class="method-description">
+                                    <p>Sets the header response header.</p>                                </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -881,8 +882,8 @@
                 <td></td>
             </tr>
                     <tr>
-                <td></td>
-                <td>$replace</td>
+                <td>bool</td>
+                <td>$replacePrevious</td>
                 <td></td>
             </tr>
             </table>
@@ -896,7 +897,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method___toString">
-        <div class="location">at line         line 74</div>
+        <div class="location">at line         line 93</div>
         <code>                    string
     <strong>__toString</strong>()
         </code>
@@ -924,7 +925,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_jsonSerialize">
-        <div class="location">at line         line 81</div>
+        <div class="location">at line         line 101</div>
         <code>                    array
     <strong>jsonSerialize</strong>()
         </code>
