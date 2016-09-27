@@ -67,7 +67,7 @@
     </div>
 
     <ul class="pagination">
-                                    <li class="disabled"><a href="#letterA">A</a></li>
+                                    <li><a href="#letterA">A</a></li>
                                                 <li class="disabled"><a href="#letterB">B</a></li>
                                                 <li class="disabled"><a href="#letterC">C</a></li>
                                                 <li class="disabled"><a href="#letterD">D</a></li>
@@ -96,24 +96,37 @@
                         </ul>
 
     <h2 id="letterA">A</h2>
-        <dl id="index"><dt><a href="Http/Http.html#method_abort"><abbr title="Http\Http">Http</abbr>::abort</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
+        <dl id="index"><dt><a href="Http/Http.html#method_after"><abbr title="Http\Http">Http</abbr>::after</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
+                    <dd>Set a callback to be run after any route callback is executed.</dd><dt><a href="Http/Http.html#method_abort"><abbr title="Http\Http">Http</abbr>::abort</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>A convenience method to abort the route
-and send a response with the given status &amp; message</dd>        </dl><h2 id="letterD">D</h2>
+and send a response with the given status &amp; message</dd>        </dl><h2 id="letterB">B</h2>
+        <dl id="index"><dt><a href="Http/Http.html#method_before"><abbr title="Http\Http">Http</abbr>::before</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
+                    <dd>Set a callback to be run before any route callback is executed.</dd>        </dl><h2 id="letterD">D</h2>
         <dl id="index"><dt><a href="Http/Http.html#method_delete"><abbr title="Http\Http">Http</abbr>::delete</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Defines a DELETE callback</dd>        </dl><h2 id="letterE">E</h2>
         <dl id="index"><dt><a href="Http/Http.html#method_error"><abbr title="Http\Http">Http</abbr>::error</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Defines the global exception handler</dd><dt><a href="Http/Http.html#method_exec"><abbr title="Http\Http">Http</abbr>::exec</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Runs the route</dd>        </dl><h2 id="letterG">G</h2>
         <dl id="index"><dt><a href="Http/Http.html#method_get"><abbr title="Http\Http">Http</abbr>::get</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
-                    <dd>Defines a GET callback</dd><dt><a href="Http/Request.html#method_get"><abbr title="Http\Request">Request</abbr>::get</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
-                    <dd></dd><dt><a href="Http/Response.html#method_get"><abbr title="Http\Response">Response</abbr>::get</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
-                    <dd></dd>        </dl><h2 id="letterH">H</h2>
+                    <dd>Defines a GET callback</dd><dt><a href="Http/Request.html#method_getFile"><abbr title="Http\Request">Request</abbr>::getFile</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the filename of the script called by the request.</dd><dt><a href="Http/Request.html#method_getHost"><abbr title="Http\Request">Request</abbr>::getHost</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the host from the php server superglobals</dd><dt><a href="Http/Request.html#method_getMethod"><abbr title="Http\Request">Request</abbr>::getMethod</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the request method.</dd><dt><a href="Http/Request.html#method_getPort"><abbr title="Http\Request">Request</abbr>::getPort</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the port from the php server superglobals</dd><dt><a href="Http/Request.html#method_getPathInfo"><abbr title="Http\Request">Request</abbr>::getPathInfo</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the path info from the php server superglobals</dd><dt><a href="Http/Request.html#method_getRequestURI"><abbr title="Http\Request">Request</abbr>::getRequestURI</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the request URI from the php server superglobals</dd><dt><a href="Http/Request.html#method_getScriptName"><abbr title="Http\Request">Request</abbr>::getScriptName</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the name of the script called from the request</dd><dt><a href="Http/Request.html#method_getURIComponent"><abbr title="Http\Request">Request</abbr>::getURIComponent</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets a given URI component off the parsed request URI</dd><dt><a href="Http/Request.html#method_getAllURIComponents"><abbr title="Http\Request">Request</abbr>::getAllURIComponents</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Returns the array of URI components off the parsed request URI</dd><dt><a href="Http/Request.html#method_getUserAgent"><abbr title="Http\Request">Request</abbr>::getUserAgent</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets the user agent from the php server superglobals</dd><dt><a href="Http/Request.html#method_get"><abbr title="Http\Request">Request</abbr>::get</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
+                    <dd>Gets data off the request body.</dd><dt><a href="Http/Response.html#method_get"><abbr title="Http\Response">Response</abbr>::get</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
+                    <dd>Get a value from the response given a property.</dd>        </dl><h2 id="letterH">H</h2>
         <dl id="index"><dt><a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a> &mdash; <em>Class in namespace <a href="Http.html">Http</a></em></dt>
                     <dd></dd><dt><a href="Http/Http.html#method_header"><abbr title="Http\Http">Http</abbr>::header</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Sets the header response header.</dd><dt><a href="Http/Http.html#method_handleError"><abbr title="Http\Http">Http</abbr>::handleError</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>This is really an exception handler
 "error" is just syntactical sugar</dd><dt><a href="Http/Response.html#method_header"><abbr title="Http\Response">Response</abbr>::header</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
-                    <dd>Sets the header response header.</dd>        </dl><h2 id="letterI">I</h2>
+                    <dd>Sets the response header.</dd>        </dl><h2 id="letterI">I</h2>
         <dl id="index"><dt><a href="Http/Exceptions/InvalidStatusCode.html"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr></a> &mdash; <em>Class in namespace <a href="Http/Exceptions.html">Http\Exceptions</a></em></dt>
                     <dd></dd>        </dl><h2 id="letterJ">J</h2>
         <dl id="index"><dt><a href="Http/Exceptions/InvalidStatusCode.html#method_jsonSerialize"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr>::jsonSerialize</a>() &mdash; <em>Method in class <a href="Http/Exceptions/InvalidStatusCode.html"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr></a></em></dt>
@@ -123,9 +136,9 @@ and send a response with the given status &amp; message</dd>        </dl><h2 id=
                     <dd>Defines a POST callback</dd><dt><a href="Http/Http.html#method_put"><abbr title="Http\Http">Http</abbr>::put</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Defines a PUT callback</dd><dt><a href="Http/Http.html#method_patch"><abbr title="Http\Http">Http</abbr>::patch</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Defines a PATCH callback</dd><dt><a href="Http/Response.html#method_push"><abbr title="Http\Response">Response</abbr>::push</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
-                    <dd></dd>        </dl><h2 id="letterQ">Q</h2>
+                    <dd>Push data onto the response as an indexed array.</dd>        </dl><h2 id="letterQ">Q</h2>
         <dl id="index"><dt><a href="Http/Request.html#method_query"><abbr title="Http\Request">Request</abbr>::query</a>() &mdash; <em>Method in class <a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a></em></dt>
-                    <dd></dd>        </dl><h2 id="letterR">R</h2>
+                    <dd>Gets data from the query parameters of the request.</dd>        </dl><h2 id="letterR">R</h2>
         <dl id="index"><dt><a href="Http/Http.html#method_redirect"><abbr title="Http\Http">Http</abbr>::redirect</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Redirect to a given URL.</dd><dt><a href="Http/Request.html"><abbr title="Http\Request">Request</abbr></a> &mdash; <em>Class in namespace <a href="Http.html">Http</a></em></dt>
                     <dd></dd><dt><a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a> &mdash; <em>Class in namespace <a href="Http.html">Http</a></em></dt>
@@ -135,10 +148,10 @@ and send a response with the given status &amp; message</dd>        </dl><h2 id=
 sets the status and return the previous status code.</dd><dt><a href="Http/Http.html#method_send"><abbr title="Http\Http">Http</abbr>::send</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>
                     <dd>Sends a response and exits script execution.</dd><dt>$<a href="Http/Response.html#property_statusTexts"><abbr title="Http\Response">Response</abbr></a> &mdash; <em>Property in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
                     <dd></dd><dt><a href="Http/Response.html#method_set"><abbr title="Http\Response">Response</abbr>::set</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
-                    <dd></dd><dt><a href="Http/Response.html#method_set_array"><abbr title="Http\Response">Response</abbr>::set_array</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
-                    <dd></dd>        </dl><h2 id="letterU">U</h2>
+                    <dd>Set a given property on the response with the given value.</dd><dt><a href="Http/Response.html#method_set_array"><abbr title="Http\Response">Response</abbr>::set_array</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
+                    <dd>Set an array of key value pairs on the response.</dd>        </dl><h2 id="letterU">U</h2>
         <dl id="index"><dt><a href="Http/Response.html#method_unshift"><abbr title="Http\Response">Response</abbr>::unshift</a>() &mdash; <em>Method in class <a href="Http/Response.html"><abbr title="Http\Response">Response</abbr></a></em></dt>
-                    <dd></dd>        </dl><h2 id="letter_">_</h2>
+                    <dd>Prepend data onto the response as an indexed array.</dd>        </dl><h2 id="letter_">_</h2>
         <dl id="index"><dt><a href="Http/Exceptions/InvalidStatusCode.html#method___construct"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr>::__construct</a>() &mdash; <em>Method in class <a href="Http/Exceptions/InvalidStatusCode.html"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr></a></em></dt>
                     <dd></dd><dt><a href="Http/Exceptions/InvalidStatusCode.html#method___toString"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr>::__toString</a>() &mdash; <em>Method in class <a href="Http/Exceptions/InvalidStatusCode.html"><abbr title="Http\Exceptions\InvalidStatusCode">InvalidStatusCode</abbr></a></em></dt>
                     <dd></dd><dt><a href="Http/Http.html#method___construct"><abbr title="Http\Http">Http</abbr>::__construct</a>() &mdash; <em>Method in class <a href="Http/Http.html"><abbr title="Http\Http">Http</abbr></a></em></dt>

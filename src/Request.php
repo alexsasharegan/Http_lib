@@ -5,13 +5,135 @@ namespace Http;
 class Request {
 	
 	/**
+	 * Holds any query parameters from the request.
+	 *
 	 * @var string
 	 */
 	private $_query;
+	
 	/**
+	 * Holds the request body.
+	 *
 	 * @var string
 	 */
 	private $_body;
+	
+	private $file;
+	
+	/**
+	 * Gets the filename of the script called by the request.
+	 *
+	 * @return mixed
+	 */
+	public function getFile()
+	{
+		return $this->file;
+	}
+	
+	private $host;
+	
+	/**
+	 * Gets the host from the php server superglobals
+	 *
+	 * @return mixed
+	 */
+	public function getHost()
+	{
+		return $this->host;
+	}
+	
+	private $method;
+	
+	/**
+	 * Gets the request method.
+	 *
+	 * @return mixed
+	 */
+	public function getMethod()
+	{
+		return $this->method;
+	}
+	
+	private $port;
+	
+	/**
+	 * Gets the port from the php server superglobals
+	 *
+	 * @return mixed
+	 */
+	public function getPort()
+	{
+		return $this->port;
+	}
+	
+	private $pathInfo;
+	
+	/**
+	 * Gets the path info from the php server superglobals
+	 *
+	 * @return string
+	 */
+	public function getPathInfo()
+	{
+		return $this->pathInfo;
+	}
+	
+	private $requestURI;
+	
+	/**
+	 * Gets the request URI from the php server superglobals
+	 *
+	 * @return mixed
+	 */
+	public function getRequestURI()
+	{
+		return $this->requestURI;
+	}
+	
+	private $scriptName;
+	
+	/**
+	 * Gets the name of the script called from the request
+	 *
+	 * @return mixed
+	 */
+	public function getScriptName()
+	{
+		return $this->scriptName;
+	}
+	
+	private $URIComponents;
+	
+	/**
+	 * Gets a given URI component off the parsed request URI
+	 *
+	 * @return mixed
+	 */
+	public function getURIComponent( $key )
+	{
+		return isset($this->URIComponents[ $key ]) ? $this->URIComponents[ $key ] : NULL;
+	}
+	
+	/**
+	 * Returns the array of URI components off the parsed request URI
+	 *
+	 * @return mixed
+	 */
+	public function getAllURIComponents()
+	{
+		return $this->URIComponents;
+	}
+	
+	private $userAgent;
+	
+	/**
+	 * Gets the user agent from the php server superglobals
+	 * @return mixed
+	 */
+	public function getUserAgent()
+	{
+		return $this->userAgent;
+	}
 	
 	/**
 	 * Request constructor.
@@ -51,11 +173,14 @@ class Request {
 			default:
 				$this->_body = @file_get_contents( 'php://input' );
 				break;
-		} # end switch
-		
-	} # end constructor
+		}
+	}
 	
 	/**
+	 * Gets data off the request body.
+	 * Given a key, returns the value or null.
+	 * Without arguments, returns the whole request body.
+	 *
 	 * @param string $key
 	 *
 	 * @return array|mixed|null|string
@@ -71,6 +196,8 @@ class Request {
 	}
 	
 	/**
+	 * Gets data from the query parameters of the request.
+	 *
 	 * @param $key
 	 *
 	 * @return null
@@ -88,4 +215,4 @@ class Request {
 		return json_encode( $this );
 	}
 	
-} # end class
+}

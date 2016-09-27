@@ -127,7 +127,7 @@ sets the status and return the previous status code.</p>                </div>
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>()
+                    <a href="#method___construct">__construct</a>(string $timezone = &#039;America/Phoenix&#039;)
         
                                             <p>Http constructor.</p>                </div>
                 <div class="col-md-2"></div>
@@ -194,6 +194,26 @@ sets the status and return the previous status code.</p>                </div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_before">before</a>(<a target="_blank" href="http://php.net/Closure">Closure</a> $f)
+        
+                                            <p>Set a callback to be run before any route callback is executed.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Http\$this">$this</abbr>
+                </div>
+                <div class="col-md-8 type">
+                    <a href="#method_after">after</a>(<a target="_blank" href="http://php.net/Closure">Closure</a> $f)
+        
+                                            <p>Set a callback to be run after any route callback is executed.</p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     void
                 </div>
                 <div class="col-md-8 type">
@@ -253,7 +273,7 @@ and send a response with the given status &amp; message</p>                </div
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">at line         line 15</div>
+        <div class="location">at line         line 20</div>
         <code>        static            
     <strong>redirect</strong>(string $url = &#039;/&#039;)
         </code>
@@ -284,7 +304,7 @@ and send a response with the given status &amp; message</p>                </div
             </div>
                     <div class="method-item">
                     <h3 id="method_status">
-        <div class="location">at line         line 32</div>
+        <div class="location">at line         line 37</div>
         <code>        static            int
     <strong>status</strong>(int $statusCode = NULL)
         </code>
@@ -334,7 +354,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_header">
-        <div class="location">at line         line 59</div>
+        <div class="location">at line         line 64</div>
         <code>                    void
     <strong>header</strong>($headerName, $value, bool $replacePrevious = TRUE)
         </code>
@@ -387,9 +407,9 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at line         line 67</div>
+        <div class="location">at line         line 74</div>
         <code>                    
-    <strong>__construct</strong>()
+    <strong>__construct</strong>(string $timezone = &#039;America/Phoenix&#039;)
         </code>
     </h3>
     <div class="details">
@@ -399,6 +419,16 @@ sets the status and return the previous status code.</p>                    <p>I
                     <div class="method-description">
                                     <p>Http constructor.</p>                                </div>
                 <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$timezone</td>
+                <td></td>
+            </tr>
+            </table>
+
             
             
             
@@ -408,7 +438,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at line         line 109</div>
+        <div class="location">at line         line 116</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>get</strong>(callable $cb)
         </code>
@@ -448,7 +478,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_post">
-        <div class="location">at line         line 125</div>
+        <div class="location">at line         line 132</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>post</strong>(callable $cb)
         </code>
@@ -488,7 +518,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_put">
-        <div class="location">at line         line 141</div>
+        <div class="location">at line         line 148</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>put</strong>(callable $cb)
         </code>
@@ -528,7 +558,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_patch">
-        <div class="location">at line         line 157</div>
+        <div class="location">at line         line 164</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>patch</strong>(callable $cb)
         </code>
@@ -568,7 +598,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_delete">
-        <div class="location">at line         line 173</div>
+        <div class="location">at line         line 180</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>delete</strong>(callable $cb)
         </code>
@@ -608,7 +638,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_error">
-        <div class="location">at line         line 189</div>
+        <div class="location">at line         line 196</div>
         <code>                    <a href="../Http/Http.html"><abbr title="Http\Http">Http</abbr></a>
     <strong>error</strong>(callable $cb)
         </code>
@@ -647,8 +677,79 @@ sets the status and return the previous status code.</p>                    <p>I
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_before">
+        <div class="location">at line         line 209</div>
+        <code>                    
+    <strong>before</strong>(<a target="_blank" href="http://php.net/Closure">Closure</a> $f)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set a callback to be run before any route callback is executed.</p>                    <p>Called with the Http instance as it's one argument.</p>            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/Closure">Closure</a></td>
+                <td>$f</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_after">
+        <div class="location">at line         line 224</div>
+        <code>                    <abbr title="Http\$this">$this</abbr>
+    <strong>after</strong>(<a target="_blank" href="http://php.net/Closure">Closure</a> $f)
+        </code>
+    </h3>
+    <div class="details">
+            
+    
+
+                    <div class="method-description">
+                                    <p>Set a callback to be run after any route callback is executed.</p>                    <p>Called with the Http instance as it's one argument.</p>            </div>
+                <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a target="_blank" href="http://php.net/Closure">Closure</a></td>
+                <td>$f</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Http\$this">$this</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_exec">
-        <div class="location">at line         line 201</div>
+        <div class="location">at line         line 236</div>
         <code>                    void
     <strong>exec</strong>()
         </code>
@@ -678,7 +779,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_send">
-        <div class="location">at line         line 224</div>
+        <div class="location">at line         line 266</div>
         <code>                    void
     <strong>send</strong>(int $statusCode = 200, string $contentType = &#039;application/json&#039;, string $content = &#039;&#039;)
         </code>
@@ -737,7 +838,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_handleError">
-        <div class="location">at line         line 250</div>
+        <div class="location">at line         line 300</div>
         <code>                    void
     <strong>handleError</strong>(<a target="_blank" href="http://php.net/Exception">Exception</a> $e)
         </code>
@@ -778,7 +879,7 @@ sets the status and return the previous status code.</p>                    <p>I
             </div>
                     <div class="method-item">
                     <h3 id="method_abort">
-        <div class="location">at line         line 264</div>
+        <div class="location">at line         line 314</div>
         <code>                    void
     <strong>abort</strong>(int $statusCode = 404, string $message = &#039;Sorry, something went wrong.&#039;)
         </code>
@@ -824,7 +925,7 @@ and send a response with the given status &amp; message</p>                     
             </div>
                     <div class="method-item">
                     <h3 id="method___toString">
-        <div class="location">at line         line 272</div>
+        <div class="location">at line         line 322</div>
         <code>                    string
     <strong>__toString</strong>()
         </code>

@@ -7,6 +7,11 @@ use Http\Exceptions\InvalidStatusCode;
 class Http {
 	
 	/**
+	 * @var
+	 */
+	private $beforeFunc;
+	
+	/**
 	 * Redirect to a given URL.
 	 * Exits execution.
 	 *
@@ -63,10 +68,12 @@ class Http {
 	
 	/**
 	 * Http constructor.
+	 *
+	 * @param string $timezone
 	 */
-	function __construct()
+	function __construct( $timezone = "America/Phoenix" )
 	{
-		date_default_timezone_set( "America/Phoenix" );
+		date_default_timezone_set( $timezone );
 		set_exception_handler( [ $this, 'handleError' ] );
 		set_error_handler(
 			function ( $errno, $errstr, $errfile = '', $errline = '' )
@@ -194,13 +201,48 @@ class Http {
 	}
 	
 	/**
+	 * Set a callback to be run before any route callback is executed.
+	 * Called with the Http instance as it's one argument.
+	 *
+	 * @param \Closure $f
+	 */
+	public function before( \Closure $f )
+	{
+		$this->beforeFunc = $f;
+		
+		return $this;
+	}
+	
+	/**
+	 * Set a callback to be run after any route callback is executed.
+	 * Called with the Http instance as it's one argument.
+	 *
+	 * @param \Closure $f
+	 *
+	 * @return $this
+	 */
+	public function after( \Closure $f )
+	{
+		$this->afterFunc = $f;
+		
+		return $this;
+	}
+	
+	/**
 	 * Runs the route
 	 *
 	 * @return void
 	 */
 	public function exec()
 	{
-		$method = $this->request->method;
+		if ( ! $this->beforeFunc instanceof \Closure )
+		{
+			$this->beforeFunc = function () { };
+		}
+		
+		call_user_func( $this->beforeFunc, $this );
+		
+		$method = $this->request->getMethod();
 		
 		if ( is_callable( $this->$method ) ):
 			$params = array_merge( [ $this ], $this->{$method . 'Params'} );
@@ -237,12 +279,20 @@ class Http {
 			echo $this->response;
 		endif;
 		
+		if ( ! is_callable( $this->afterFunc ) )
+		{
+			$this->afterFunc = function () { };
+		}
+		
+		call_user_func( $this->afterFunc, $this );
+		
 		exit;
 	}
 	
 	/**
 	 * This is really an exception handler
 	 * "error" is just syntactical sugar
+	 *
 	 * @param \Exception $e
 	 *
 	 * @return void

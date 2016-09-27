@@ -5,6 +5,8 @@ namespace Http;
 class Response implements \JsonSerializable {
 	
 	/**
+	 * Holds the data that will be used in the response.
+	 *
 	 * @var array
 	 */
 	private $_data = [];
@@ -18,29 +20,34 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
-	 * @param $prop
+	 * Get a value from the response given a property.
+	 *
+	 * @param $property
 	 *
 	 * @return mixed
 	 */
-	public function get( $prop )
+	public function get( $property )
 	{
-		return $this->_data[ $prop ];
+		return isset($this->_data[ $property ]) ? $this->_data[ $property ] : NULL;
 	}
 	
 	/**
-	 * @param $key
-	 * @param $val
+	 * Set a given property on the response with the given value.
+	 * @param $property
+	 * @param $value
 	 *
 	 * @return mixed
 	 */
-	public function set( $key, $val )
+	public function set( $property, $value )
 	{
-		$this->_data[ $key ] = $val;
+		$this->_data[ $property ] = $value;
 		
-		return $this->_data[ $key ];
+		return $this->_data[ $property ];
 	}
 	
 	/**
+	 * Set an array of key value pairs on the response.
+	 *
 	 * @param array $assoc_array
 	 */
 	public function set_array( array $assoc_array )
@@ -52,6 +59,8 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
+	 * Push data onto the response as an indexed array.
+	 *
 	 * @param $data
 	 *
 	 * @return $this
@@ -64,6 +73,8 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
+	 * Prepend data onto the response as an indexed array.
+	 *
 	 * @param $data
 	 *
 	 * @return $this
@@ -76,7 +87,7 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
-	 * Sets the header response header.
+	 * Sets the response header.
 	 *
 	 * @param      $headerName
 	 * @param      $value
