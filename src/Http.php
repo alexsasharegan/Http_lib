@@ -3,13 +3,18 @@
 namespace Http;
 
 use Http\Exceptions\InvalidStatusCode;
+use Http\Exceptions\ResponseAlreadySent;
 
 class Http {
+	
+	private $hasSent = FALSE;
 	
 	/**
 	 * @var
 	 */
 	private $beforeFunc;
+	
+	private $afterFunc;
 	
 	/**
 	 * Redirect to a given URL.
@@ -217,6 +222,19 @@ class Http {
 	}
 	
 	/**
+	 * Call the before middleware
+	 */
+	private function callBefore()
+	{
+		if ( ! $this->beforeFunc instanceof \Closure )
+		{
+			$this->beforeFunc = function () { };
+		}
+		
+		call_user_func( $this->beforeFunc, $this );
+	}
+	
+	/**
 	 * Set a callback to be run after any route callback is executed.
 	 * Called with the Http instance as it's one argument.
 	 *
@@ -232,19 +250,25 @@ class Http {
 	}
 	
 	/**
+	 * Call the after middleware
+	 */
+	private function callAfter()
+	{
+		if ( ! is_callable( $this->afterFunc ) )
+		{
+			$this->afterFunc = function () { };
+		}
+		
+		call_user_func( $this->afterFunc, $this );
+	}
+	
+	/**
 	 * Runs the route
 	 *
 	 * @return void
 	 */
 	public function exec()
 	{
-		if ( ! $this->beforeFunc instanceof \Closure )
-		{
-			$this->beforeFunc = function () { };
-		}
-		
-		call_user_func( $this->beforeFunc, $this );
-		
 		$method = $this->request->getMethod();
 		
 		if ( is_callable( $this->$method ) ):
@@ -268,7 +292,14 @@ class Http {
 	 */
 	public function send( $statusCode = 200, $contentType = 'application/json', $content = '' )
 	{
-		header( "Content-Type: $contentType; charset=UTF-8" );
+		if ( $this->hasSent )
+		{
+			throw new ResponseAlreadySent;
+		}
+		
+		$this->hasSent = TRUE;
+		
+		header( "Content-Type: $contentType; charset=UTF-8", TRUE );
 		
 		if ( isset(Response::$statusTexts[ $statusCode ]) ):
 			http_response_code( $statusCode );
@@ -276,18 +307,15 @@ class Http {
 			throw new InvalidStatusCode( $statusCode, 1 );
 		endif;
 		
+		$this->callBefore();
+		
 		if ( ! empty($content) ):
 			echo $content;
 		else:
 			echo $this->response;
 		endif;
 		
-		if ( ! is_callable( $this->afterFunc ) )
-		{
-			$this->afterFunc = function () { };
-		}
-		
-		call_user_func( $this->afterFunc, $this );
+		$this->callAfter();
 		
 		exit;
 	}
