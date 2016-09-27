@@ -200,11 +200,14 @@ class Http {
 		return $this;
 	}
 	
+	
 	/**
 	 * Set a callback to be run before any route callback is executed.
 	 * Called with the Http instance as it's one argument.
 	 *
 	 * @param \Closure $f
+	 *
+	 * @return $this
 	 */
 	public function before( \Closure $f )
 	{
