@@ -18,6 +18,9 @@ class Request {
 	 */
 	private $_body;
 	
+	/**
+	 * @var mixed
+	 */
 	private $file;
 	
 	/**
@@ -30,6 +33,9 @@ class Request {
 		return $this->file;
 	}
 	
+	/**
+	 * @var
+	 */
 	private $host;
 	
 	/**
@@ -42,6 +48,9 @@ class Request {
 		return $this->host;
 	}
 	
+	/**
+	 * @var
+	 */
 	private $method;
 	
 	/**
@@ -54,6 +63,9 @@ class Request {
 		return $this->method;
 	}
 	
+	/**
+	 * @var
+	 */
 	private $port;
 	
 	/**
@@ -66,6 +78,9 @@ class Request {
 		return $this->port;
 	}
 	
+	/**
+	 * @var string
+	 */
 	private $pathInfo;
 	
 	/**
@@ -78,6 +93,9 @@ class Request {
 		return $this->pathInfo;
 	}
 	
+	/**
+	 * @var
+	 */
 	private $requestURI;
 	
 	/**
@@ -90,6 +108,9 @@ class Request {
 		return $this->requestURI;
 	}
 	
+	/**
+	 * @var
+	 */
 	private $scriptName;
 	
 	/**
@@ -102,12 +123,17 @@ class Request {
 		return $this->scriptName;
 	}
 	
+	/**
+	 * @var mixed
+	 */
 	private $URIComponents;
 	
 	/**
 	 * Gets a given URI component off the parsed request URI
 	 *
-	 * @return mixed
+	 * @param $key
+	 *
+	 * @return null
 	 */
 	public function getURIComponent( $key )
 	{
@@ -124,6 +150,9 @@ class Request {
 		return $this->URIComponents;
 	}
 	
+	/**
+	 * @var
+	 */
 	private $userAgent;
 	
 	/**
@@ -205,6 +234,22 @@ class Request {
 	public function query( $key )
 	{
 		return isset($this->_query[ $key ]) ? $this->_query[ $key ] : NULL;
+	}
+	
+	/**
+	 * Pluck an id from the request URI
+	 * if it can be matched as an integer,
+	 * else returns false
+	 *
+	 * @return bool|int
+	 */
+	public function getIdFromURI()
+	{
+		$matches = [];
+		
+		$didMatch = (bool) preg_match( "/^\/(\d+).*?/", $this->pathInfo, $matches );
+		
+		return $didMatch ? (int) $matches[1] : $didMatch;
 	}
 	
 	/**

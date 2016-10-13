@@ -41,19 +41,22 @@ class Http {
 	 */
 	public static function status( $statusCode = NULL )
 	{
-		if ( ! is_null( $statusCode ) ):
-			
-			if ( isset(Response::$statusTexts[ $statusCode ]) ):
+		if ( ! is_null( $statusCode ) )
+		{
+			if ( isset(Response::$statusTexts[ $statusCode ]) )
+			{
 				return http_response_code( $statusCode );
-			else:
+			}
+			else
+			{
 				throw new InvalidStatusCode( $statusCode, 1 );
-			endif;
+			}
+		}
 		
-		else:
-			
+		else
+		{
 			return http_response_code();
-		
-		endif;
+		}
 	}
 	
 	/**
@@ -80,19 +83,17 @@ class Http {
 	{
 		date_default_timezone_set( $timezone );
 		set_exception_handler( [ $this, 'handleError' ] );
-		set_error_handler(
-			function ( $errno, $errstr, $errfile = '', $errline = '' )
-			{
-				$this->response->set_array( [
-					'error' => [
-						'level'   => $errno,
-						'message' => $errstr,
-						'file'    => $errfile,
-						'line'    => $errline,
-					],
-				] );
-			}
-		);
+		set_error_handler( function ( $errno, $errstr, $errfile = '', $errline = '' )
+		{
+			$this->response->set_array( [
+				'error' => [
+					'level'   => $errno,
+					'message' => $errstr,
+					'file'    => $errfile,
+					'line'    => $errline,
+				],
+			] );
+		} );
 		
 		$this->request  = new Request;
 		$this->response = new Response;
@@ -269,14 +270,23 @@ class Http {
 	 */
 	public function exec()
 	{
+		$this->callBefore();
+		
 		$method = $this->request->getMethod();
 		
-		if ( is_callable( $this->$method ) ):
+		if ( is_callable( $this->$method ) )
+		{
 			$params = array_merge( [ $this ], $this->{$method . 'Params'} );
 			call_user_func_array( $this->$method, $params );
-		else:
+		}
+		else
+		{
 			$this->handleDefault();
-		endif;
+		}
+		
+		$this->callAfter();
+		
+		exit;
 	}
 	
 	/**
@@ -287,8 +297,7 @@ class Http {
 	 * @param string $content
 	 *
 	 * @throws InvalidStatusCode
-	 *
-	 * @return void
+	 * @throws ResponseAlreadySent
 	 */
 	public function send( $statusCode = 200, $contentType = 'application/json', $content = '' )
 	{
@@ -301,23 +310,16 @@ class Http {
 		
 		header( "Content-Type: $contentType; charset=UTF-8", TRUE );
 		
-		if ( isset(Response::$statusTexts[ $statusCode ]) ):
-			http_response_code( $statusCode );
-		else:
+		if ( isset(Response::$statusTexts[ $statusCode ]) )
+		{
+			self::status( $statusCode );
+		}
+		else
+		{
 			throw new InvalidStatusCode( $statusCode, 1 );
-		endif;
+		}
 		
-		$this->callBefore();
-		
-		if ( ! empty($content) ):
-			echo $content;
-		else:
-			echo $this->response;
-		endif;
-		
-		$this->callAfter();
-		
-		exit;
+		echo ! empty($content) ? $content : $this->response;
 	}
 	
 	/**

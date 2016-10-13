@@ -33,6 +33,7 @@ class Response implements \JsonSerializable {
 	
 	/**
 	 * Set a given property on the response with the given value.
+	 *
 	 * @param $property
 	 * @param $value
 	 *
@@ -42,20 +43,24 @@ class Response implements \JsonSerializable {
 	{
 		$this->_data[ $property ] = $value;
 		
-		return $this->_data[ $property ];
+		return $this;
 	}
 	
 	/**
 	 * Set an array of key value pairs on the response.
 	 *
 	 * @param array $assoc_array
+	 *
+	 * @return $this
 	 */
 	public function set_array( array $assoc_array )
 	{
-		foreach ( $assoc_array as $key => $val )
+		foreach ( $assoc_array as $property => $value )
 		{
-			$this->_data[ $key ] = $val;
+			$this->set( $property, $value );
 		}
+		
+		return $this;
 	}
 	
 	/**
@@ -95,7 +100,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function header( $headerName, $value, $replacePrevious = TRUE )
 	{
-		header( "$headerName: $value", $replacePrevious );
+		header( "{$headerName}: {$value}", $replacePrevious );
 	}
 	
 	/**
