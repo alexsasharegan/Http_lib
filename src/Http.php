@@ -310,14 +310,7 @@ class Http {
 		
 		header( "Content-Type: $contentType; charset=UTF-8", TRUE );
 		
-		if ( isset(Response::$statusTexts[ $statusCode ]) )
-		{
-			self::status( $statusCode );
-		}
-		else
-		{
-			throw new InvalidStatusCode( $statusCode, 1 );
-		}
+		self::status( $statusCode );
 		
 		echo ! empty($content) ? $content : $this->response;
 	}
