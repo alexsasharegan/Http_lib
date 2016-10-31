@@ -247,7 +247,7 @@ class Request {
 	{
 		$matches = [];
 		
-		$didMatch = (bool) preg_match( "/^\/(\d+).*?/", $this->pathInfo, $matches );
+		$didMatch = (bool) preg_match( "/^\/(\d+).*?/", $this->getPathInfo(), $matches );
 		
 		return $didMatch ? (int) $matches[1] : $didMatch;
 	}
