@@ -9,6 +9,8 @@ class Http {
 	
 	private $hasSent = FALSE;
 	
+	private $aborted = FALSE;
+	
 	/**
 	 * @var
 	 */
@@ -301,6 +303,11 @@ class Http {
 	 */
 	public function send( $statusCode = 200, $contentType = 'application/json', $content = '' )
 	{
+		if ( $this->aborted )
+		{
+			return;
+		}
+		
 		if ( $this->hasSent )
 		{
 			throw new ResponseAlreadySent;
@@ -337,9 +344,10 @@ class Http {
 	 *
 	 * @return void
 	 */
-	public function abort( $statusCode = 404, $message = 'Sorry, something went wrong.' )
+	public function abort( $statusCode = Response::HTTP_NOT_FOUND, $message = 'Sorry, something went wrong.' )
 	{
 		$this->send( $statusCode, 'application/json', json_encode( [ 'message' => $message ] ) );
+		$this->aborted = TRUE;
 	}
 	
 	/**
