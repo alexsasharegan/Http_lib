@@ -61,6 +61,11 @@ class Http {
 		}
 	}
 	
+	public static function newInstance( $timezone = "America/Phoenix" )
+	{
+		return new static( $timezone );
+	}
+	
 	/**
 	 * Sets the header response header.
 	 * - Convenience method proxy for the Response class
