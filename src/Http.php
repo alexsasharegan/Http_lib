@@ -291,9 +291,7 @@ class Http {
 			$this->handleDefault();
 		}
 		
-		$this->callAfter();
-		
-		exit;
+		$this->terminate();
 	}
 	
 	/**
@@ -308,11 +306,6 @@ class Http {
 	 */
 	public function send( $statusCode = 200, $contentType = 'application/json', $content = '' )
 	{
-		if ( $this->aborted )
-		{
-			return;
-		}
-		
 		if ( $this->hasSent )
 		{
 			throw new ResponseAlreadySent;
@@ -352,7 +345,13 @@ class Http {
 	public function abort( $statusCode = Response::HTTP_NOT_FOUND, $message = 'Sorry, something went wrong.' )
 	{
 		$this->send( $statusCode, 'application/json', json_encode( [ 'message' => $message ] ) );
-		$this->aborted = TRUE;
+		$this->terminate();
+	}
+	
+	public function terminate()
+	{
+		$this->callAfter();
+		exit;
 	}
 	
 	/**
