@@ -318,6 +318,8 @@ class Http {
 		self::status( $statusCode );
 		
 		echo ! empty($content) ? $content : $this->response;
+		
+		$this->terminate();
 	}
 	
 	/**
@@ -345,7 +347,6 @@ class Http {
 	public function abort( $statusCode = Response::HTTP_NOT_FOUND, $message = 'Sorry, something went wrong.' )
 	{
 		$this->send( $statusCode, 'application/json', json_encode( [ 'message' => $message ] ) );
-		$this->terminate();
 	}
 	
 	public function terminate()
