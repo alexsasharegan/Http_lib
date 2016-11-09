@@ -9,8 +9,6 @@ class Http {
 	
 	private $hasSent = FALSE;
 	
-	private $aborted = FALSE;
-	
 	/**
 	 * @var
 	 */
@@ -90,14 +88,14 @@ class Http {
 	{
 		date_default_timezone_set( $timezone );
 		set_exception_handler( [ $this, 'handleError' ] );
-		set_error_handler( function ( $errno, $errstr, $errfile = '', $errline = '' )
+		set_error_handler( function ( $errNo, $errStr, $errFile = '', $errLine = '' )
 		{
 			$this->response->set_array( [
 				'error' => [
-					'level'   => $errno,
-					'message' => $errstr,
-					'file'    => $errfile,
-					'line'    => $errline,
+					'level'   => $errNo,
+					'message' => $errStr,
+					'file'    => $errFile,
+					'line'    => $errLine,
 				],
 			] );
 		} );
@@ -349,6 +347,9 @@ class Http {
 		$this->send( $statusCode, 'application/json', json_encode( [ 'message' => $message ] ) );
 	}
 	
+	/**
+	 * Terminates the response and runs "after" middleware
+	 */
 	public function terminate()
 	{
 		$this->callAfter();

@@ -23,6 +23,16 @@ class Request {
 	 */
 	private $file;
 	
+	private $ip;
+	
+	/**
+	 * @return mixed
+	 */
+	public function getIp()
+	{
+		return $this->ip;
+	}
+	
 	/**
 	 * Gets the filename of the script called by the request.
 	 *
@@ -187,6 +197,7 @@ class Request {
 		$this->scriptName    = $_SERVER['SCRIPT_NAME'];
 		$this->URIComponents = parse_url( $_SERVER['REQUEST_URI'] );
 		$this->userAgent     = $_SERVER['HTTP_USER_AGENT'];
+		$this->ip            = $_SERVER['REMOTE_ADDR'];
 		
 		switch ( strtolower( $this->contentType ) )
 		{
@@ -234,6 +245,16 @@ class Request {
 	public function query( $key )
 	{
 		return isset($this->_query[ $key ]) ? $this->_query[ $key ] : NULL;
+	}
+	
+	public function server( $key = '' )
+	{
+		if ( empty($key) )
+		{
+			return $_SERVER;
+		}
+		
+		return isset($_SERVER[ $key ]) ? $_SERVER[ $key ] : NULL;
 	}
 	
 	/**
