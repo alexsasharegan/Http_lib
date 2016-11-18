@@ -64,6 +64,38 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
+	 * Set an array of key value pairs on the response.
+	 *
+	 * @param array $assoc_array
+	 *
+	 * @return $this
+	 */
+	public function setAssocArray( array $assoc_array )
+	{
+		foreach ( $assoc_array as $property => $value )
+		{
+			$this->set( $property, $value );
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Use to set a numerically indexed array of data on the response object.
+	 * Replaces the Response's default initialized array.
+	 *
+	 * @param array $data
+	 *
+	 * @return $this
+	 */
+	public function setIndexedArray( array $data )
+	{
+		$this->_data = $data;
+		
+		return $this;
+	}
+	
+	/**
 	 * Push data onto the response as an indexed array.
 	 *
 	 * @param $data
