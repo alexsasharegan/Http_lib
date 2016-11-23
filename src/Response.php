@@ -124,15 +124,45 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
+	 * @param      $headerName
+	 * @param      $value
+	 * @param bool $replacePrevious
+	 */
+	public static function setHeader( $headerName, $value, $replacePrevious = TRUE )
+	{
+		header( "{$headerName}: {$value}", $replacePrevious );
+	}
+	
+	/**
+	 * @param string $contentType
+	 */
+	public static function setContentType( $contentType = 'application/json' )
+	{
+		self::setHeader( 'Content-Type', $contentType );
+	}
+	
+	/**
+	 * Sets the Content-Type to json and charset to UTF-8
+	 */
+	public static function setJSONHeader()
+	{
+		self::setContentType( 'application/json; charset=UTF-8;' );
+	}
+	
+	/**
 	 * Sets the response header.
 	 *
 	 * @param      $headerName
 	 * @param      $value
 	 * @param bool $replacePrevious
+	 *
+	 * @return $this
 	 */
 	public function header( $headerName, $value, $replacePrevious = TRUE )
 	{
-		header( "{$headerName}: {$value}", $replacePrevious );
+		self::setHeader( $headerName, $value, $replacePrevious );
+		
+		return $this;
 	}
 	
 	/**
@@ -140,7 +170,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function __toString()
 	{
-		return json_encode( $this->_data );
+		return json_encode( $this->jsonSerialize() );
 	}
 	
 	/**

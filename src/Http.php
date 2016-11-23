@@ -29,6 +29,16 @@ class Http {
 	}
 	
 	/**
+	 * @param      $headerName
+	 * @param      $value
+	 * @param bool $replacePrevious
+	 */
+	public static function setHeader( $headerName, $value, $replacePrevious = TRUE )
+	{
+		Response::setHeader( $headerName, $value, $replacePrevious );
+	}
+	
+	/**
 	 * If given a valid status code,
 	 * sets the status and return the previous status code.
 	 *
