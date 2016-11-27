@@ -28,7 +28,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function get( $property )
 	{
-		return isset($this->_data[ $property ]) ? $this->_data[ $property ] : NULL;
+		return isset( $this->_data[ $property ] ) ? $this->_data[ $property ] : NULL;
 	}
 	
 	/**
@@ -81,6 +81,20 @@ class Response implements \JsonSerializable {
 	}
 	
 	/**
+	 * Initializes the response data with either an empty array or the array data given.
+	 *
+	 * @param array $data
+	 *
+	 * @return $this
+	 */
+	public function initData( array $data = [] )
+	{
+		$this->_data = $data;
+		
+		return $this;
+	}
+	
+	/**
 	 * Use to set a numerically indexed array of data on the response object.
 	 * Replaces the Response's default initialized array.
 	 *
@@ -90,9 +104,7 @@ class Response implements \JsonSerializable {
 	 */
 	public function setIndexedArray( array $data )
 	{
-		$this->_data = $data;
-		
-		return $this;
+		return $this->initData( $data );
 	}
 	
 	/**
