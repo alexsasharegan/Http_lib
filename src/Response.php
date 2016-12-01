@@ -37,7 +37,7 @@ class Response implements \JsonSerializable {
 	 * @param $property
 	 * @param $value
 	 *
-	 * @return mixed
+	 * @return $this
 	 */
 	public function set( $property, $value )
 	{
