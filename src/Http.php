@@ -53,7 +53,7 @@ class Http {
 	{
 		if ( ! is_null( $statusCode ) )
 		{
-			if ( isset(Response::$statusTexts[ $statusCode ]) )
+			if ( isset( Response::$statusTexts[ $statusCode ] ) )
 			{
 				return http_response_code( $statusCode );
 			}
@@ -325,7 +325,7 @@ class Http {
 		
 		self::status( $statusCode );
 		
-		echo ! empty($content) ? $content : $this->response;
+		echo ! empty( $content ) ? $content : $this->response;
 		
 		$this->terminate();
 	}
@@ -340,7 +340,22 @@ class Http {
 	 */
 	public function handleError( \Exception $e )
 	{
-		$this->send( 500, 'application/json', json_encode( [ 'error' => $e ] ) );
+		if ( $e instanceof \JsonSerializable )
+		{
+			$this->send( 500, 'application/json', json_encode( [ 'error' => $e ] ) );
+		}
+		else
+		{
+			$this->send( 500, 'application/json', json_encode( [
+				'error'       => $e->getMessage(),
+				'message'     => $e->getMessage(),
+				'code'        => $e->getCode(),
+				'file'        => $e->getFile(),
+				'line'        => $e->getLine(),
+				'trace'       => $e->getTrace(),
+				'traceString' => $e->getTraceAsString(),
+			] ) );
+		}
 	}
 	
 	/**
