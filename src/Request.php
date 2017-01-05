@@ -201,13 +201,13 @@ class Request {
 		
 		switch ( strtolower( $this->contentType ) )
 		{
-			case strtolower( stristr( $this->contentType, 'application/json' ) ):
+			case strtolower( stristr( $this->contentType, Http::MIME_APPLICATION_JSON ) ):
 				$this->_body = json_decode( file_get_contents( 'php://input' ), TRUE );
 				break;
-			case strtolower( stristr( $this->contentType, 'application/x-www-form-urlencoded' ) ):
+			case strtolower( stristr( $this->contentType, Http::MIME_FORM_URL_ENCODED ) ):
 				$this->_body = $_POST;
 				break;
-			case strtolower( stristr( $this->contentType, 'text/plain' ) ):
+			case strtolower( stristr( $this->contentType, Http::MIME_TEXT_PLAIN ) ):
 				$this->_body = file_get_contents( 'php://input' );
 				break;
 			default:

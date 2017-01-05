@@ -7,6 +7,11 @@ use Http\Exceptions\ResponseAlreadySent;
 
 class Http {
 	
+	const MIME_TEXT_HTML        = 'text/html';
+	const MIME_TEXT_PLAIN       = 'text/plain';
+	const MIME_APPLICATION_JSON = 'application/json';
+	const MIME_FORM_URL_ENCODED = 'application/x-www-form-urlencoded';
+	
 	private $hasSent = FALSE;
 	
 	/**
@@ -331,6 +336,44 @@ class Http {
 	}
 	
 	/**
+	 * Forces download of a given file and terminates the response.
+	 * File name can be aliased with optional second parameter.
+	 *
+	 * @param string $filePath
+	 * @param string $fileAlias
+	 *
+	 * @throws \RuntimeException
+	 */
+	public function sendFile( $filePath, $fileAlias = '' )
+	{
+		if ( file_exists( $filePath ) )
+		{
+			$fileName        = basename( $filePath );
+			$originalFileExt = pathinfo( $filePath, PATHINFO_EXTENSION );
+			$contentLength   = filesize( $filePath );
+			$mimeType        = mime_content_type( $filePath );
+			
+			if ( ! $fileAlias ) $fileName = self::normalizeExtension( $fileAlias, $originalFileExt );
+			
+			self::setHeader( 'Content-Description', 'File Transfer' );
+			self::setHeader( 'Content-Type', $mimeType );
+			self::setHeader( 'Content-Disposition', "attachment; filename=\"$fileName\"" );
+			self::setHeader( 'Expires', '0' );
+			self::setHeader( 'Cache-Control', 'must-revalidate' );
+			self::setHeader( 'Pragma', 'public' );
+			self::setHeader( 'Content-Length', $contentLength );
+			
+			readfile( $filePath );
+			
+			$this->terminate();
+		}
+		else
+		{
+			throw new \RuntimeException( 'The requested file does not exist.', Response::HTTP_NOT_FOUND );
+		}
+	}
+	
+	/**
 	 * This is really an exception handler
 	 * "error" is just syntactical sugar
 	 *
@@ -387,6 +430,31 @@ class Http {
 	public function __toString()
 	{
 		return json_encode( $this );
+	}
+	
+	/**
+	 * @param $fileName
+	 * @param $desiredExtension
+	 *
+	 * @return string
+	 */
+	public static function normalizeExtension( $fileName, $desiredExtension )
+	{
+		$originalExtension   = pathinfo( $fileName, PATHINFO_EXTENSION );
+		$normalizedExtension = $desiredExtension
+			? '.' . ltrim( strtolower( $desiredExtension ), '.' )
+			: $desiredExtension;
+		
+		if ( $originalExtension )
+		{
+			$originalExtension = '.' . $originalExtension;
+			
+			return str_replace( $originalExtension, $normalizedExtension, $fileName );
+		}
+		else
+		{
+			return $fileName . $normalizedExtension;
+		}
 	}
 	
 }
