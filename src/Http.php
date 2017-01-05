@@ -353,7 +353,7 @@ class Http {
 			$contentLength   = filesize( $filePath );
 			$mimeType        = mime_content_type( $filePath );
 			
-			if ( ! $fileAlias ) $fileName = self::normalizeExtension( $fileAlias, $originalFileExt );
+			if ( $fileAlias ) $fileName = self::normalizeExtension( $fileAlias, $originalFileExt );
 			
 			self::setHeader( 'Content-Description', 'File Transfer' );
 			self::setHeader( 'Content-Type', $mimeType );
