@@ -24,155 +24,38 @@ class Request {
 	private $file;
 	
 	private $ip;
-	
-	/**
-	 * @return mixed
-	 */
-	public function getIp()
-	{
-		return $this->ip;
-	}
-	
-	/**
-	 * Gets the filename of the script called by the request.
-	 *
-	 * @return mixed
-	 */
-	public function getFile()
-	{
-		return $this->file;
-	}
-	
 	/**
 	 * @var
 	 */
 	private $host;
-	
-	/**
-	 * Gets the host from the php server superglobals
-	 *
-	 * @return mixed
-	 */
-	public function getHost()
-	{
-		return $this->host;
-	}
-	
 	/**
 	 * @var
 	 */
 	private $method;
-	
-	/**
-	 * Gets the request method.
-	 *
-	 * @return mixed
-	 */
-	public function getMethod()
-	{
-		return $this->method;
-	}
-	
 	/**
 	 * @var
 	 */
 	private $port;
-	
-	/**
-	 * Gets the port from the php server superglobals
-	 *
-	 * @return mixed
-	 */
-	public function getPort()
-	{
-		return $this->port;
-	}
-	
 	/**
 	 * @var string
 	 */
 	private $pathInfo;
-	
-	/**
-	 * Gets the path info from the php server superglobals
-	 *
-	 * @return string
-	 */
-	public function getPathInfo()
-	{
-		return $this->pathInfo;
-	}
-	
 	/**
 	 * @var
 	 */
 	private $requestURI;
-	
-	/**
-	 * Gets the request URI from the php server superglobals
-	 *
-	 * @return mixed
-	 */
-	public function getRequestURI()
-	{
-		return $this->requestURI;
-	}
-	
 	/**
 	 * @var
 	 */
 	private $scriptName;
-	
-	/**
-	 * Gets the name of the script called from the request
-	 *
-	 * @return mixed
-	 */
-	public function getScriptName()
-	{
-		return $this->scriptName;
-	}
-	
 	/**
 	 * @var mixed
 	 */
 	private $URIComponents;
-	
-	/**
-	 * Gets a given URI component off the parsed request URI
-	 *
-	 * @param $key
-	 *
-	 * @return null
-	 */
-	public function getURIComponent( $key )
-	{
-		return isset($this->URIComponents[ $key ]) ? $this->URIComponents[ $key ] : NULL;
-	}
-	
-	/**
-	 * Returns the array of URI components off the parsed request URI
-	 *
-	 * @return mixed
-	 */
-	public function getAllURIComponents()
-	{
-		return $this->URIComponents;
-	}
-	
 	/**
 	 * @var
 	 */
 	private $userAgent;
-	
-	/**
-	 * Gets the user agent from the php server superglobals
-	 * @return mixed
-	 */
-	public function getUserAgent()
-	{
-		return $this->userAgent;
-	}
 	
 	/**
 	 * Request constructor.
@@ -180,8 +63,8 @@ class Request {
 	function __construct()
 	{
 		
-		$this->contentType = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : '';
-		$this->cookies     = isset($_SERVER['HTTP_COOKIE']) ? $_SERVER['HTTP_COOKIE'] : '';;
+		$this->contentType = isset( $_SERVER['CONTENT_TYPE'] ) ? $_SERVER['CONTENT_TYPE'] : '';
+		$this->cookies     = isset( $_SERVER['HTTP_COOKIE'] ) ? $_SERVER['HTTP_COOKIE'] : '';;
 		
 		// PHP throws a scrict-mode warning if we don't use an interim variable
 		// "Strict Standards: Only variables should be passed by reference"
@@ -192,7 +75,7 @@ class Request {
 		$this->method        = $_SERVER['REQUEST_METHOD'];
 		$this->_query        = $_GET;
 		$this->port          = $_SERVER['SERVER_PORT'];
-		$this->pathInfo      = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
+		$this->pathInfo      = isset( $_SERVER['PATH_INFO'] ) ? $_SERVER['PATH_INFO'] : '';
 		$this->requestURI    = $_SERVER['REQUEST_URI'];
 		$this->scriptName    = $_SERVER['SCRIPT_NAME'];
 		$this->URIComponents = parse_url( $_SERVER['REQUEST_URI'] );
@@ -217,6 +100,105 @@ class Request {
 	}
 	
 	/**
+	 * @return mixed
+	 */
+	public function getIp()
+	{
+		return $this->ip;
+	}
+	
+	/**
+	 * Gets the filename of the script called by the request.
+	 *
+	 * @return mixed
+	 */
+	public function getFile()
+	{
+		return $this->file;
+	}
+	
+	/**
+	 * Gets the host from the php server superglobals
+	 *
+	 * @return mixed
+	 */
+	public function getHost()
+	{
+		return $this->host;
+	}
+	
+	/**
+	 * Gets the request method.
+	 *
+	 * @return mixed
+	 */
+	public function getMethod()
+	{
+		return $this->method;
+	}
+	
+	/**
+	 * Gets the port from the php server superglobals
+	 *
+	 * @return mixed
+	 */
+	public function getPort()
+	{
+		return $this->port;
+	}
+	
+	/**
+	 * Gets the request URI from the php server superglobals
+	 *
+	 * @return mixed
+	 */
+	public function getRequestURI()
+	{
+		return $this->requestURI;
+	}
+	
+	/**
+	 * Gets the name of the script called from the request
+	 *
+	 * @return mixed
+	 */
+	public function getScriptName()
+	{
+		return $this->scriptName;
+	}
+	
+	/**
+	 * Gets a given URI component off the parsed request URI
+	 *
+	 * @param $key
+	 *
+	 * @return null
+	 */
+	public function getURIComponent( $key )
+	{
+		return isset( $this->URIComponents[ $key ] ) ? $this->URIComponents[ $key ] : NULL;
+	}
+	
+	/**
+	 * Returns the array of URI components off the parsed request URI
+	 *
+	 * @return mixed
+	 */
+	public function getAllURIComponents()
+	{
+		return $this->URIComponents;
+	}
+	
+	/**
+	 * Gets the user agent from the php server superglobals
+	 * @return mixed
+	 */
+	public function getUserAgent()
+	{
+		return $this->userAgent;
+	}
+	
+	/**
 	 * Gets data off the request body.
 	 * Given a key, returns the value or null.
 	 * Without arguments, returns the whole request body.
@@ -227,12 +209,36 @@ class Request {
 	 */
 	public function get( $key = '' )
 	{
-		if ( ! is_array( $this->_body ) || empty($key) )
+		if ( ! is_array( $this->_body ) || empty( $key ) )
 		{
-			return isset($this->_body) ? $this->_body : NULL;
+			return isset( $this->_body ) ? $this->_body : NULL;
 		}
 		
-		return isset($this->_body[ $key ]) ? $this->_body[ $key ] : NULL;
+		return isset( $this->_body[ $key ] ) ? $this->_body[ $key ] : NULL;
+	}
+	
+	/**
+	 * Gets data off the request body.
+	 * Given a key, returns the value or null.
+	 * Without arguments, returns the whole request body.
+	 *
+	 * @param string $key
+	 *
+	 * @return array|mixed|null|string
+	 */
+	public function getParam( $key = '' )
+	{
+		return $this->get( $key );
+	}
+	
+	/**
+	 * Returns the whole request body.
+	 *
+	 * @return array|mixed|null|string
+	 */
+	public function getAllParams()
+	{
+		return isset( $this->_body ) ? $this->_body : NULL;
 	}
 	
 	/**
@@ -240,21 +246,48 @@ class Request {
 	 *
 	 * @param $key
 	 *
-	 * @return null
+	 * @return mixed|null
 	 */
-	public function query( $key )
+	public function query( $key = '' )
 	{
-		return isset($this->_query[ $key ]) ? $this->_query[ $key ] : NULL;
+		if ( empty( $key ) )
+		{
+			return isset( $this->_query ) ? $this->_query : NULL;
+		}
+		
+		return isset( $this->_query[ $key ] ) ? $this->_query[ $key ] : NULL;
+	}
+	
+	/**
+	 * Gets data from the query parameters of the request.
+	 *
+	 * @param $key
+	 *
+	 * @return mixed|null
+	 */
+	public function getQueryParam( $key = '' )
+	{
+		return $this->query( $key );
+	}
+	
+	/**
+	 * Gets data from the query parameters of the request.
+	 *
+	 * @return mixed|null
+	 */
+	public function getAllQueryParams()
+	{
+		return $this->_query;
 	}
 	
 	public function server( $key = '' )
 	{
-		if ( empty($key) )
+		if ( empty( $key ) )
 		{
 			return $_SERVER;
 		}
 		
-		return isset($_SERVER[ $key ]) ? $_SERVER[ $key ] : NULL;
+		return isset( $_SERVER[ $key ] ) ? $_SERVER[ $key ] : NULL;
 	}
 	
 	/**
@@ -271,6 +304,16 @@ class Request {
 		$didMatch = (bool) preg_match( "/^\/(\d+).*?/", $this->getPathInfo(), $matches );
 		
 		return $didMatch ? (int) $matches[1] : $didMatch;
+	}
+	
+	/**
+	 * Gets the path info from the php server superglobals
+	 *
+	 * @return string
+	 */
+	public function getPathInfo()
+	{
+		return $this->pathInfo;
 	}
 	
 	/**

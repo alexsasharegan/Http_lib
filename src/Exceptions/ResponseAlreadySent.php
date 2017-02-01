@@ -11,13 +11,13 @@ class ResponseAlreadySent extends \Exception implements \JsonSerializable {
 	/**
 	 * ResponseAlreadySent constructor.
 	 *
-	 * @param string         $message
-	 * @param int            $code
-	 * @param Exception|NULL $previous
+	 * @param string          $message
+	 * @param int             $code
+	 * @param \Exception|NULL $previous
 	 */
-	public function __construct( $message = '', $code = 0, Exception $previous = NULL )
+	public function __construct( $message = '', $code = 0, \Exception $previous = NULL )
 	{
-		if ( empty($message) )
+		if ( empty( $message ) )
 		{
 			$message = "Response already sent. Cannot call send twice.";
 		}

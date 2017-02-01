@@ -8,17 +8,19 @@ namespace Http\Exceptions;
  */
 class InvalidStatusCode extends \Exception implements \JsonSerializable {
 	
+	protected $statusCode;
+	
 	/**
 	 * InvalidStatusCode constructor.
 	 *
-	 * @param string         $statusCode
-	 * @param int            $code
-	 * @param Exception|NULL $previous
+	 * @param int             $statusCode
+	 * @param int             $code
+	 * @param \Exception|NULL $previous
 	 */
-	public function __construct( $statusCode, $code = 0, Exception $previous = NULL )
+	public function __construct( $statusCode, $code = 0, \Exception $previous = NULL )
 	{
-		$this->statusCode = $statusCode;
-		$message          = "Invalid HTTP status code. Status code provided: {$statusCode}";
+		$this->setStatusCode( $statusCode );
+		$message = "Invalid HTTP status code. Status code provided: {$statusCode}";
 		parent::__construct( $message, $code, $previous );
 	}
 	
@@ -40,5 +42,25 @@ class InvalidStatusCode extends \Exception implements \JsonSerializable {
 			'message'    => $this->message,
 			'statusCode' => $this->statusCode,
 		];
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getStatusCode()
+	{
+		return $this->statusCode;
+	}
+	
+	/**
+	 * @param $statusCode
+	 *
+	 * @return $this
+	 */
+	public function setStatusCode( $statusCode )
+	{
+		$this->statusCode = $statusCode;
+		
+		return $this;
 	}
 }

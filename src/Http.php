@@ -22,79 +22,6 @@ class Http {
 	private $afterFunc;
 	
 	/**
-	 * Redirect to a given URL.
-	 * Exits execution.
-	 *
-	 * @param string $url
-	 */
-	public static function redirect( $url = '/' )
-	{
-		header( "Location: $url" );
-		exit;
-	}
-	
-	/**
-	 * @param      $headerName
-	 * @param      $value
-	 * @param bool $replacePrevious
-	 */
-	public static function setHeader( $headerName, $value, $replacePrevious = TRUE )
-	{
-		Response::setHeader( $headerName, $value, $replacePrevious );
-	}
-	
-	/**
-	 * If given a valid status code,
-	 * sets the status and return the previous status code.
-	 *
-	 * If not, returns the current status code.
-	 *
-	 * @param int $statusCode
-	 *
-	 * @return int
-	 * @throws InvalidStatusCode
-	 */
-	public static function status( $statusCode = NULL )
-	{
-		if ( ! is_null( $statusCode ) )
-		{
-			if ( isset( Response::$statusTexts[ $statusCode ] ) )
-			{
-				return http_response_code( $statusCode );
-			}
-			else
-			{
-				throw new InvalidStatusCode( $statusCode, 1 );
-			}
-		}
-		
-		else
-		{
-			return http_response_code();
-		}
-	}
-	
-	public static function newInstance( $timezone = "America/Phoenix" )
-	{
-		return new static( $timezone );
-	}
-	
-	/**
-	 * Sets the header response header.
-	 * - Convenience method proxy for the Response class
-	 *
-	 * @param      $headerName
-	 * @param      $value
-	 * @param bool $replacePrevious
-	 *
-	 * @return void
-	 */
-	public function header( $headerName, $value, $replacePrevious = TRUE )
-	{
-		$this->response->header( $headerName, $value, $replacePrevious );
-	}
-	
-	/**
 	 * Http constructor.
 	 *
 	 * @param string $timezone
@@ -120,16 +47,35 @@ class Http {
 	}
 	
 	/**
+	 * Redirect to a given URL.
+	 * Exits execution.
 	 *
+	 * @param string $url
 	 */
-	private function handleDefault()
+	public static function redirect( $url = '/' )
 	{
-		$this->response->set_array( [
-			'error' => [
-				'message' => "No route has been defined for this request method.",
-			],
-		] );
-		$this->send( Response::HTTP_METHOD_NOT_ALLOWED );
+		header( "Location: $url" );
+		exit;
+	}
+	
+	public static function newInstance( $timezone = "America/Phoenix" )
+	{
+		return new static( $timezone );
+	}
+	
+	/**
+	 * Sets the header response header.
+	 * - Convenience method proxy for the Response class
+	 *
+	 * @param      $headerName
+	 * @param      $value
+	 * @param bool $replacePrevious
+	 *
+	 * @return void
+	 */
+	public function header( $headerName, $value, $replacePrevious = TRUE )
+	{
+		$this->response->header( $headerName, $value, $replacePrevious );
 	}
 	
 	/**
@@ -226,7 +172,6 @@ class Http {
 		return $this;
 	}
 	
-	
 	/**
 	 * Set a callback to be run before any route callback is executed.
 	 * Called with the Http instance as it's one argument.
@@ -243,19 +188,6 @@ class Http {
 	}
 	
 	/**
-	 * Call the before middleware
-	 */
-	private function callBefore()
-	{
-		if ( ! $this->beforeFunc instanceof \Closure )
-		{
-			$this->beforeFunc = function () { };
-		}
-		
-		call_user_func( $this->beforeFunc, $this );
-	}
-	
-	/**
 	 * Set a callback to be run after any route callback is executed.
 	 * Called with the Http instance as it's one argument.
 	 *
@@ -268,19 +200,6 @@ class Http {
 		$this->afterFunc = $f;
 		
 		return $this;
-	}
-	
-	/**
-	 * Call the after middleware
-	 */
-	private function callAfter()
-	{
-		if ( ! is_callable( $this->afterFunc ) )
-		{
-			$this->afterFunc = function () { };
-		}
-		
-		call_user_func( $this->afterFunc, $this );
 	}
 	
 	/**
@@ -305,6 +224,32 @@ class Http {
 		}
 		
 		$this->terminate();
+	}
+	
+	/**
+	 * Call the before middleware
+	 */
+	private function callBefore()
+	{
+		if ( ! $this->beforeFunc instanceof \Closure )
+		{
+			$this->beforeFunc = function () { };
+		}
+		
+		call_user_func( $this->beforeFunc, $this );
+	}
+	
+	/**
+	 *
+	 */
+	private function handleDefault()
+	{
+		$this->response->set_array( [
+			'error' => [
+				'message' => "No route has been defined for this request method.",
+			],
+		] );
+		$this->send( Response::HTTP_METHOD_NOT_ALLOWED );
 	}
 	
 	/**
@@ -333,6 +278,59 @@ class Http {
 		echo ! empty( $content ) ? $content : $this->response;
 		
 		$this->terminate();
+	}
+	
+	/**
+	 * If given a valid status code,
+	 * sets the status and return the previous status code.
+	 *
+	 * If not, returns the current status code.
+	 *
+	 * @param int $statusCode
+	 *
+	 * @return int
+	 * @throws InvalidStatusCode
+	 */
+	public static function status( $statusCode = NULL )
+	{
+		if ( ! is_null( $statusCode ) )
+		{
+			if ( isset( Response::$statusTexts[ $statusCode ] ) )
+			{
+				return http_response_code( $statusCode );
+			}
+			else
+			{
+				throw new InvalidStatusCode( $statusCode, 1 );
+			}
+		}
+		
+		else
+		{
+			return http_response_code();
+		}
+	}
+	
+	/**
+	 * Terminates the response and runs "after" middleware
+	 */
+	public function terminate()
+	{
+		$this->callAfter();
+		exit;
+	}
+	
+	/**
+	 * Call the after middleware
+	 */
+	private function callAfter()
+	{
+		if ( ! is_callable( $this->afterFunc ) )
+		{
+			$this->afterFunc = function () { };
+		}
+		
+		call_user_func( $this->afterFunc, $this );
 	}
 	
 	/**
@@ -371,6 +369,41 @@ class Http {
 		{
 			throw new \RuntimeException( 'The requested file does not exist.', Response::HTTP_NOT_FOUND );
 		}
+	}
+	
+	/**
+	 * @param $fileName
+	 * @param $desiredExtension
+	 *
+	 * @return string
+	 */
+	public static function normalizeExtension( $fileName, $desiredExtension )
+	{
+		$originalExtension   = pathinfo( $fileName, PATHINFO_EXTENSION );
+		$normalizedExtension = $desiredExtension
+			? '.' . ltrim( strtolower( $desiredExtension ), '.' )
+			: $desiredExtension;
+		
+		if ( $originalExtension )
+		{
+			$originalExtension = '.' . $originalExtension;
+			
+			return str_replace( $originalExtension, $normalizedExtension, $fileName );
+		}
+		else
+		{
+			return $fileName . $normalizedExtension;
+		}
+	}
+	
+	/**
+	 * @param      $headerName
+	 * @param      $value
+	 * @param bool $replacePrevious
+	 */
+	public static function setHeader( $headerName, $value, $replacePrevious = TRUE )
+	{
+		Response::setHeader( $headerName, $value, $replacePrevious );
 	}
 	
 	/**
@@ -416,45 +449,11 @@ class Http {
 	}
 	
 	/**
-	 * Terminates the response and runs "after" middleware
-	 */
-	public function terminate()
-	{
-		$this->callAfter();
-		exit;
-	}
-	
-	/**
 	 * @return string
 	 */
 	public function __toString()
 	{
 		return json_encode( $this );
-	}
-	
-	/**
-	 * @param $fileName
-	 * @param $desiredExtension
-	 *
-	 * @return string
-	 */
-	public static function normalizeExtension( $fileName, $desiredExtension )
-	{
-		$originalExtension   = pathinfo( $fileName, PATHINFO_EXTENSION );
-		$normalizedExtension = $desiredExtension
-			? '.' . ltrim( strtolower( $desiredExtension ), '.' )
-			: $desiredExtension;
-		
-		if ( $originalExtension )
-		{
-			$originalExtension = '.' . $originalExtension;
-			
-			return str_replace( $originalExtension, $normalizedExtension, $fileName );
-		}
-		else
-		{
-			return $fileName . $normalizedExtension;
-		}
 	}
 	
 }
