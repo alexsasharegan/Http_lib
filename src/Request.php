@@ -81,6 +81,7 @@ class Request {
 		$this->URIComponents = parse_url( $_SERVER['REQUEST_URI'] );
 		$this->userAgent     = $_SERVER['HTTP_USER_AGENT'];
 		$this->ip            = $_SERVER['REMOTE_ADDR'];
+		$this->headers = getallheaders();
 		
 		switch ( strtolower( $this->contentType ) )
 		{
