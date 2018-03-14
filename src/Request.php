@@ -87,8 +87,10 @@ class Request {
     $this->URIComponents = parse_url($_SERVER['REQUEST_URI']);
     $this->userAgent = $_SERVER['HTTP_USER_AGENT'];
     $this->ip = $_SERVER['REMOTE_ADDR'];
-    $this->headers = getallheaders();
-    if (!$this->headers) $this->headers = [];
+    $this->headers = Request::parseHeaders();
+    if (!$this->headers) {
+      $this->headers = [];
+    }
 
     switch (strtolower($this->contentType)) {
       case strtolower(stristr($this->contentType, Http::MIME_APPLICATION_JSON)):
@@ -331,6 +333,27 @@ class Request {
    */
   public function __toString() {
     return json_encode($this);
+  }
+
+  public static function parseHeaders() {
+    if (!function_exists('getallheaders')) {
+      function getallheaders() {
+        $headers = [];
+        foreach ($_SERVER as $name => $value) {
+          if (substr($name, 0, 5) == 'HTTP_') {
+            $headers[
+              str_replace(' ', '-', ucwords(
+                  strtolower(
+                    str_replace('_', ' ', substr($name, 5))
+                  )
+              ))
+            ] = $value;
+          }
+        }
+      }
+    }
+
+    return getallheaders();
   }
 
 }
