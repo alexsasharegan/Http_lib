@@ -11,6 +11,7 @@ class Http {
   const MIME_TEXT_PLAIN = 'text/plain';
   const MIME_APPLICATION_JSON = 'application/json';
   const MIME_FORM_URL_ENCODED = 'application/x-www-form-urlencoded';
+
   /**
    * @var Request
    */
@@ -251,9 +252,13 @@ class Http {
    * @throws InvalidStatusCode
    * @throws ResponseAlreadySent
    */
-  public function send($statusCode = 200, $contentType = 'application/json', $content = '') {
+  public function send(
+    $statusCode = Status::HTTP_OK,
+    $contentType = 'application/json',
+    $content = ''
+  ) {
     if ($this->hasSent) {
-      throw new ResponseAlreadySent;
+      throw new ResponseAlreadySent();
     }
 
     $this->hasSent = TRUE;
@@ -265,6 +270,14 @@ class Http {
     echo !empty($content) ? $content : $this->response;
 
     $this->terminate();
+  }
+
+  public function send_response(Responder $response) {
+    $this->send(
+      $response->get_status(),
+      $response->get_content_type(),
+      $response->get_body()
+    );
   }
 
   /**
@@ -328,11 +341,16 @@ class Http {
       $contentLength = filesize($filePath);
       $mimeType = mime_content_type($filePath);
 
-      if ($fileAlias) $fileName = self::normalizeExtension($fileAlias, $originalFileExt);
+      if ($fileAlias) {
+        $fileName = self::normalizeExtension($fileAlias, $originalFileExt);
+      }
 
       self::setHeader('Content-Description', 'File Transfer');
       self::setHeader('Content-Type', $mimeType);
-      self::setHeader('Content-Disposition', "attachment; filename=\"$fileName\"");
+      self::setHeader(
+        'Content-Disposition',
+        "attachment; filename=\"$fileName\""
+      );
       self::setHeader('Expires', '0');
       self::setHeader('Cache-Control', 'must-revalidate');
       self::setHeader('Pragma', 'public');
@@ -343,7 +361,10 @@ class Http {
       $this->terminate();
     }
     else {
-      throw new \RuntimeException('The requested file does not exist.', Response::HTTP_NOT_FOUND);
+      throw new \RuntimeException(
+        'The requested file does not exist.',
+        Status::HTTP_NOT_FOUND
+      );
     }
   }
 
@@ -374,7 +395,11 @@ class Http {
    * @param      $value
    * @param bool $replacePrevious
    */
-  public static function setHeader($headerName, $value, $replacePrevious = TRUE) {
+  public static function setHeader(
+    $headerName,
+    $value,
+    $replacePrevious = TRUE
+  ) {
     Response::setHeader($headerName, $value, $replacePrevious);
   }
 
@@ -388,18 +413,26 @@ class Http {
    */
   public function handleError(\Exception $e) {
     if ($e instanceof \JsonSerializable) {
-      $this->send(500, 'application/json', json_encode(['error' => $e]));
+      $this->send(
+        Status::HTTP_INTERNAL_SERVER_ERROR,
+        'application/json',
+        json_encode(['error' => $e])
+      );
     }
     else {
-      $this->send(500, 'application/json', json_encode([
-        'error' => $e->getMessage(),
-        'message' => $e->getMessage(),
-        'code' => $e->getCode(),
-        'file' => $e->getFile(),
-        'line' => $e->getLine(),
-        'trace' => $e->getTrace(),
-        'traceString' => $e->getTraceAsString(),
-      ]));
+      $this->send(
+        Status::HTTP_INTERNAL_SERVER_ERROR,
+        'application/json',
+        json_encode([
+          'error' => $e->getMessage(),
+          'message' => $e->getMessage(),
+          'code' => $e->getCode(),
+          'file' => $e->getFile(),
+          'line' => $e->getLine(),
+          'trace' => $e->getTrace(),
+          'traceString' => $e->getTraceAsString(),
+        ])
+      );
     }
   }
 
@@ -412,8 +445,15 @@ class Http {
    *
    * @return void
    */
-  public function abort($statusCode = Response::HTTP_NOT_FOUND, $message = 'Sorry, something went wrong.') {
-    $this->send($statusCode, 'application/json', json_encode(['message' => $message]));
+  public function abort(
+    $statusCode = Status::HTTP_NOT_FOUND,
+    $message = 'Sorry, something went wrong.'
+  ) {
+    $this->send(
+      $statusCode,
+      'application/json',
+      json_encode(compact('message'))
+    );
   }
 
   /**
